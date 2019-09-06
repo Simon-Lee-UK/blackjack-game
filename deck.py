@@ -1,5 +1,7 @@
 """This module contains the 'Deck' class and related methods.
 """
+import pandas as pd
+import numpy as np
 
 
 class Deck:
@@ -9,4 +11,5 @@ class Deck:
     code.
     """
     def __init__(self):
-        self._suit_array = []
+        self._suit_array = ['spades', 'hearts', 'clubs', 'diamonds']
+        print(self._suit_array)

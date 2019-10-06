@@ -11,6 +11,7 @@ from deck import Deck
 
 def main():
     first_deck = Deck()
+    first_deck.new_deck()
 
 
 if __name__ == '__main__':

@@ -25,6 +25,7 @@ class Deck:
         self._rank_array = ['Ace', 'Two', 'Three', 'Four', 'Five', 'Six',
                             'Seven', 'Eight', 'Nine', 'Ten', 'Jack', 'Queen', 'King']
         self._value_array = [(1, 11), 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10]  # Maybe change the Ace tuple to a dict?
+        self._deck_count = 1  # Defines how many 52-card decks are combined for the Blackjack deck (Casino normally 6)
         self.new_deck()
 
     def new_deck(self):
@@ -32,10 +33,10 @@ class Deck:
         Card objects: together forming six full 52-card decks. Another 'Deck' method: 'shuffle_deck' is then
         called to randomly order the 312 'Card' objects within the list, giving a shuffled deck to start the game.
         """
-        self._deck_array.clear()  # This line clears any existing elements from the '_deck_array' list (only required
+        self._deck_array.clear()  # This line clears any existing elements from the '_deck_array' list - only required
         # when calling the method against an existing 'Deck' object, e.g.: " some_deck_object.new_deck() " would
         # effectively clear-out the existing deck, replacing it with a fresh one
-        for i in range(6):
+        for i in range(self._deck_count):
             for suit in self._suit_array:
                 j = 0
                 for rank in self._rank_array:

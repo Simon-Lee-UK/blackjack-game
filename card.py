@@ -14,7 +14,7 @@ class Card:
         self._value = input_value
         self._deck_num = input_deck_num + 1
 
-    def print_all_details(self):
+    def print_all_card_details(self):
         """ Prints the key attributes of a Card object, e.g.: 'Ace of diamonds (Value = 1 or 11, Deck# = 3)'
         """
         if self._rank == 'Ace':

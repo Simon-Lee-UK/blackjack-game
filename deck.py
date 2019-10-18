@@ -3,6 +3,7 @@
 import pandas as pd
 import numpy as np
 from card import Card
+from random import shuffle
 
 
 class Deck:
@@ -28,13 +29,30 @@ class Deck:
     def new_deck(self):
         """ The 'new_deck' method loops through a 'Deck' object's property arrays to populate the '_deck_array' with
         Card objects: together forming six full 52-card decks. On creation of each Card, its 'print_all_details' method
-        is called; this prints the suit, rank and value of that card. Another 'Deck' method: 'shuffle' will then be
+        is called; this prints the suit, rank and value of that card. Another 'Deck' method: 'shuffle_deck' is then
         called to randomly order the 312 'Card' objects within the list, giving a shuffled deck to start the game.
+
+        *** Not sure how legit it is but this method feels like it could be called within 'init' rather than explicitly
+        from the blackjack_main.py module... Then, whenever a new deck was created it would do the whole process rather
+        than just create the attribute arrays currently in 'init'. ***
         """
         for i in range(6):
             for suit in self._suit_array:
                 j = 0
                 for rank in self._rank_array:
                     self._deck_array.append(Card(suit, rank, self._value_array[j], i))
-                    self._deck_array[-1].print_all_details()
+                    #  self._deck_array[-1].print_all_card_details()  # Uncomment to print initial un-shuffled deck
                     j += 1
+        self.shuffle_deck()  # Calls the 'shuffle_deck' method against the current Deck object (is this Pythonic code?)
+
+    def shuffle_deck(self):
+        """ When called, applies a new random ordering to the Card objects contained within a Deck object. Uses a method
+        called 'shuffle' which is part of the 'random' package imported at the top of this module.
+        """
+        return shuffle(self._deck_array)
+
+    def print_deck(self):
+        """ Prints details of all cards within the Deck object (top to bottom)
+        """
+        for card in self._deck_array:
+            card.print_all_card_details()

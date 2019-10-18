@@ -12,6 +12,7 @@ from deck import Deck
 def main():
     first_deck = Deck()
     first_deck.new_deck()
+    first_deck.print_deck()  # This prints the shuffled deck - currently nice to check it's working OK
 
 
 if __name__ == '__main__':

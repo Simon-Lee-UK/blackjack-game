@@ -2,6 +2,7 @@
 """
 import pandas as pd
 import numpy as np
+from card import Card
 
 
 class Deck:
@@ -15,6 +16,7 @@ class Deck:
         The '_rank_array' holds the 13 ranks in each suit and the '_value_array' holds their corresponding values in the
         game of blackjack.
         """
+        self._deck_array = []
         self._suit_array = ['spades', 'hearts', 'clubs', 'diamonds']
         self._rank_array = ['Ace', 'Two', 'Three', 'Four', 'Five', 'Six',
                             'Seven', 'Eight', 'Nine', 'Ten', 'Jack', 'Queen', 'King']
@@ -33,10 +35,6 @@ class Deck:
             for suit in self._suit_array:
                 j = 0
                 for rank in self._rank_array:
-                    if rank == 'Ace':
-                        print('{} of {} (Value = {} or {}, Deck# = {})'
-                              .format(rank, suit, str(self._value_array[j][0]), str(self._value_array[j][1]), str(i+1)))
-                    else:
-                        print('{} of {} (Value = {}, Deck# = {})'
-                              .format(rank, suit, str(self._value_array[j]), str(i + 1)))
+                    self._deck_array.append(Card(suit, rank, self._value_array[j], i))
+                    self._deck_array[-1].print_all_details()
                     j += 1

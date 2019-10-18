@@ -30,8 +30,9 @@ class Deck:
 
     def new_deck(self):
         """ The 'new_deck' method loops through a 'Deck' object's property arrays to populate the '_deck_array' with
-        Card objects: together forming six full 52-card decks. Another 'Deck' method: 'shuffle_deck' is then
-        called to randomly order the 312 'Card' objects within the list, giving a shuffled deck to start the game.
+        Card objects. The game deck is populated with an integer number of full 52-card decks, set by the '_deck_count'
+        internal variable defined in init. Once the game deck has been created, another 'Deck' method: 'shuffle_deck' is
+        called to randomly order the 'Card' objects within the list, giving a shuffled deck to start/continue the game.
         """
         self._deck_array.clear()  # This line clears any existing elements from the '_deck_array' list - only required
         # when calling the method against an existing 'Deck' object, e.g.: " some_deck_object.new_deck() " would

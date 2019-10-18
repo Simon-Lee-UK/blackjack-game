@@ -14,28 +14,27 @@ class Deck:
         '_deck_array', '_suit_array', '_rank_array' and '_value_array' (the leading underscore is a Python convention;
         it hints that the variable is for internal use within the object's methods, i.e. it shouldn't be called when
         interacting with a 'Deck' object elsewhere in the code). The '_deck_array' is the most important feature of the
-        Deck class; it is empty on initialisation of a Deck object but the 'new_deck' method will populate this list
-        with 'Card' objects when called. The final three (lets call them 'property') arrays contain details of a
-        standard deck of cards. Individual elements of these arrays are passed to a Card object when it is initialised.
-        The '_suit_array' holds the four suits found in a pack of cards. The '_rank_array' holds the 13 ranks in each
-        suit and the '_value_array' holds their corresponding values in the game of blackjack.
+        Deck class; it is empty when defined but the 'new_deck' method, called at the end of init, will populate this
+        list with 'Card' objects. The final three (lets call them 'property') arrays contain details of a standard deck
+        of cards. Individual elements of these arrays are passed to a Card object when it is initialised. The
+        '_suit_array' holds the four suits found in a pack of cards. The '_rank_array' holds the 13 ranks in each suit
+        and the '_value_array' holds their corresponding values in the game of blackjack.
         """
         self._deck_array = []
         self._suit_array = ['spades', 'hearts', 'clubs', 'diamonds']
         self._rank_array = ['Ace', 'Two', 'Three', 'Four', 'Five', 'Six',
                             'Seven', 'Eight', 'Nine', 'Ten', 'Jack', 'Queen', 'King']
         self._value_array = [(1, 11), 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10]  # Maybe change the Ace tuple to a dict?
+        self.new_deck()
 
     def new_deck(self):
         """ The 'new_deck' method loops through a 'Deck' object's property arrays to populate the '_deck_array' with
-        Card objects: together forming six full 52-card decks. On creation of each Card, its 'print_all_details' method
-        is called; this prints the suit, rank and value of that card. Another 'Deck' method: 'shuffle_deck' is then
+        Card objects: together forming six full 52-card decks. Another 'Deck' method: 'shuffle_deck' is then
         called to randomly order the 312 'Card' objects within the list, giving a shuffled deck to start the game.
-
-        *** Not sure how legit it is but this method feels like it could be called within 'init' rather than explicitly
-        from the blackjack_main.py module... Then, whenever a new deck was created it would do the whole process rather
-        than just create the attribute arrays currently in 'init'. ***
         """
+        self._deck_array.clear()  # This line clears any existing elements from the '_deck_array' list (only required
+        # when calling the method against an existing 'Deck' object, e.g.: " some_deck_object.new_deck() " would
+        # effectively clear-out the existing deck, replacing it with a fresh one
         for i in range(6):
             for suit in self._suit_array:
                 j = 0

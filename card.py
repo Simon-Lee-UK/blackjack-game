@@ -38,6 +38,12 @@ class Card:
         """
         self._face_up = not self._face_up
 
+    def return_card_value(self):
+        """ Returns the value of the target card. Value can be a tuple (for an Ace) or an integer value (all other
+        cards).
+        """
+        return self._value  # TODO: Need to make this sensitive to orientation of card.
+
     def return_card_orientation(self):
         """ Returns the current card orientation as a boolean (face-up = True, face-down = False)
         """

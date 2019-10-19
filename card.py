@@ -6,13 +6,14 @@ import numpy as np
 
 class Card:
     """ A class defining the properties of a card object. On initialisation, the internal attributes for the suit, rank,
-    value and deck number of the Card are defined based on the input variables.
+    value and deck number of the Card are defined based on the input variables. By default, cards are created face down.
     """
     def __init__(self, input_suit, input_rank, input_value, input_deck_num):
         self._suit = input_suit
         self._rank = input_rank
         self._value = input_value
         self._deck_num = input_deck_num + 1
+        self._face_up = False  # This logical stores whether the card is face up (True) or face down (False)
 
     def print_all_card_details(self):
         """ Prints the key attributes of a Card object, e.g.: 'Ace of diamonds (Value = 1 or 11, Deck# = 3)'
@@ -23,3 +24,8 @@ class Card:
         else:
             print('{} of {} (Value = {}, Deck# = {})'
                   .format(self._rank, self._suit, str(self._value), str(self._deck_num)))
+
+    def flip_card(self):
+        """ 'Flips' the card by setting '_face_up' to the opposite boolean value
+        """
+        self._face_up = not self._face_up

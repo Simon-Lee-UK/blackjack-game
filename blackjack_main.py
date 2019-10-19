@@ -7,6 +7,7 @@ describe the block of code below, they'll be super helpful for us as we collabor
 import pandas as pd
 import numpy as np
 from deck import Deck
+from hand import Hand
 
 
 def main():
@@ -22,6 +23,24 @@ def main():
     """
     first_deck = Deck()
     first_deck.print_deck()  # This prints details of the cards in the deck - currently nice to check it's working OK
+    single_round(first_deck)
+    print('yey')
+
+
+def single_round(current_deck):
+    """ Currently, not a full round. Just deals two cards to the player and two cards to the dealer. As these hands are
+    defined within the 'single_round' function (and are not returned at the end), they only exist for a single round.
+    For now, think this is fine. When writing info to StatJack, will need to ensure hand info is written from this
+    function.
+    """
+    face_direction = ['up', 'down']
+    players_hand = Hand('Player')
+    dealers_hand = Hand('Dealer')
+    for direction in face_direction:
+        players_hand.draw_card(current_deck, 'up')
+        dealers_hand.draw_card(current_deck, direction)
+    print('lol')
+
 
 
 if __name__ == '__main__':

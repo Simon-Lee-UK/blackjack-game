@@ -52,6 +52,11 @@ class Deck:
         """
         return shuffle(self._deck_array)
 
+    def deal_card(self):
+        """ Some necessary comment
+        """
+        return self._deck_array.pop(0)
+
     def print_deck(self):
         """ Prints details of all cards within the Deck object (top to bottom)
         """

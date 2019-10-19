@@ -34,14 +34,18 @@ class Card:
                           str(self._deck_num)))
 
     def flip_card(self):
-        """ 'Flips' the card by setting '_face_up' to the opposite boolean value
+        """ 'Flips' the card object by setting '_face_up' to the opposite boolean value
         """
         self._face_up = not self._face_up
 
     def return_card_orientation(self):
+        """ Returns the current card orientation as a boolean (face-up = True, face-down = False)
+        """
         return self._face_up
 
     def return_shorthand_card_details(self):
+        """ If card is currently face-up, returns details in shorthand notation, e.g.: 'K-H' denoting the King of
+        hearts. If card is face-down, returns a consistent string to communicate this to the player."""
         if self._face_up:
             return '{}-{}'.format(self._rank_short, self._suit[0])
         else:

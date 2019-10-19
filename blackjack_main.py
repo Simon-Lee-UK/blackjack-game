@@ -23,23 +23,23 @@ def main():
     """
     first_deck = Deck()
     first_deck.print_deck()  # This prints details of the cards in the deck - currently nice to check it's working OK
-    single_round(first_deck)
+    single_round(first_deck)  # This starts the first round of the game, providing the above deck object as input arg
 
 
 def single_round(current_deck):
-    """ Currently, not a full round. Just deals two cards to the player and two cards to the dealer. As these hands are
-    defined within the 'single_round' function (and are not returned at the end), they only exist for a single round.
-    For now, think this is fine. When writing info to StatJack, will need to ensure hand info is written from this
-    function.
+    """ Currently, not a full round. Just deals two cards to the player and two cards to the dealer then prints both
+    hands. As these hands are defined within the 'single_round' function (and are not returned at the end), they only
+    exist for a single round. For now, think this is fine. When writing info to StatJack, will need to ensure hand info
+    is written from this function.
     """
-    face_direction = ['up', 'down']
-    players_hand = Hand('Player')
-    dealers_hand = Hand('Dealer')
+    face_direction = ['up', 'down']  # Array storing two possible hand orientations: face-up and face-down
+    players_hand = Hand('Player')  # Initialises a hand object for the player
+    dealers_hand = Hand('Dealer')  # Initialises a hand object for the computer-controlled dealer
     for direction in face_direction:
         players_hand.draw_card(current_deck, 'up')
-        dealers_hand.draw_card(current_deck, direction)
-    dealers_hand.print_hand()
-    players_hand.print_hand()
+        dealers_hand.draw_card(current_deck, direction)  # Loop ensures dealer's first card is face-up, second face-down
+    dealers_hand.print_hand()  # Prints the dealer's hand
+    players_hand.print_hand()  # Prints the player's hand
 
 
 if __name__ == '__main__':

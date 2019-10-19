@@ -1,8 +1,7 @@
 # Python Blackjack Game
 
 Alex started work on a blackjack game. He had it semi-working, but decided it was time to learn OOP, so he went off and
-re-wrote it within his own repo using OOP. His code is still accessible as legacy code in the files:
-- Blackjack OOP.py
+re-wrote it within his own repo using OOP. His code is still accessible as legacy code in the file:
 - Blackjack_OOP.py
 
 Since, Simon has been contributing to his own version of the game. Similarly, he has been going for an object-oriented

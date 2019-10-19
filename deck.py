@@ -21,9 +21,10 @@ class Deck:
         and the '_value_array' holds their corresponding values in the game of blackjack.
         """
         self._deck_array = []
-        self._suit_array = ['spades', 'hearts', 'clubs', 'diamonds']
+        self._suit_array = ['Spades', 'Hearts', 'Clubs', 'Diamonds']
         self._rank_array = ['Ace', 'Two', 'Three', 'Four', 'Five', 'Six',
                             'Seven', 'Eight', 'Nine', 'Ten', 'Jack', 'Queen', 'King']
+        self._rank_short = ['A', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K']
         self._value_array = [(1, 11), 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10]  # Maybe change the Ace tuple to a dict?
         self._deck_count = 1  # Defines how many 52-card decks are combined for the Blackjack deck (Casino normally 6)
         self.new_deck()
@@ -40,8 +41,8 @@ class Deck:
         for i in range(self._deck_count):
             for suit in self._suit_array:
                 j = 0
-                for rank in self._rank_array:
-                    self._deck_array.append(Card(suit, rank, self._value_array[j], i))
+                for rank, rank_sh in zip(self._rank_array, self._rank_short):
+                    self._deck_array.append(Card(suit, rank, rank_sh, self._value_array[j], i))
                     #  self._deck_array[-1].print_all_card_details()  # Uncomment to print initial un-shuffled deck
                     j += 1
         self.shuffle_deck()  # Calls the 'shuffle_deck' method against the current Deck object (is this Pythonic code?)

@@ -21,3 +21,8 @@ class Hand:
         if face_dir == 'down':
             drawn_card.flip_card()
         self._hand_array.append(drawn_card)
+
+    def print_hand(self):
+        print("\n{}'s hand".format(self._type_id))
+        for i in range(len(self._hand_array)):
+            print('Card {}: {}'.format(i, self._hand_array[i].return_shorthand_card_details()))

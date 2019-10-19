@@ -24,7 +24,6 @@ def main():
     first_deck = Deck()
     first_deck.print_deck()  # This prints details of the cards in the deck - currently nice to check it's working OK
     single_round(first_deck)
-    print('yey')
 
 
 def single_round(current_deck):
@@ -39,8 +38,8 @@ def single_round(current_deck):
     for direction in face_direction:
         players_hand.draw_card(current_deck, 'up')
         dealers_hand.draw_card(current_deck, direction)
-    print('lol')
-
+    dealers_hand.print_hand()
+    players_hand.print_hand()
 
 
 if __name__ == '__main__':

@@ -1,9 +1,13 @@
-Hey guys. 
+# Python Blackjack Game
 
-I've been working on a Blackjack game. 
+Alex started work on a blackjack game. He had it semi-working, but decided it was time to learn OOP, so he went off and
+re-wrote it within his own repo using OOP. His code is still accessible as legacy code in the files:
+- Blackjack OOP.py
+- Blackjack_OOP.py
 
-I had it semi-working, but now I've decided it's time to learn OOP, so I'm re-writing with OOP. 
-
-The code in the repo contains my OOP design for making a deck. However, it's clunky as hell; there must be a better way!
-
-So your task - clone the repository, and see if you can streamline my ridiculously clunky code!
+Since, Simon has been contributing to his own version of the game. Similarly, he has been going for an object-oriented
+approach. This version is run by calling the 'blackjack_main.py' file from the command line or running this script in
+your favourite IDE. This file currently has three supporting modules:
+- deck.py
+- hand.py
+- card.py

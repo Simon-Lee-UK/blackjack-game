@@ -37,4 +37,12 @@ class Hand:
         TODO: value is unknown because one or more cards are face-down AND the case where you have one/more aces within
         TODO: the hand and hence the hand can have two/more possible values.
         """
-        # Nothing in this method yet
+        indv_card_vals = []
+        poss_hand_vals = []
+        for card in self._hand_array:
+            indv_card_vals.append(card.return_card_value())
+        for i in range(len(indv_card_vals)):
+        if isinstance(indv_card_vals[i], tuple):
+            # some code that processes the two values of a tuple
+        elif isinstance(indv_card_vals[i], str):
+            # some code that processes a value where the card was face-down and so returns the string: '*-*'

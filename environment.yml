@@ -2,10 +2,13 @@ name: blackjack-dev
 channels:
   - defaults
 dependencies:
-  - black
+  - appdirs=1.4.3=py_0
+  - attrs=19.3.0=py_0
+  - black=19.10b0=py_0
   - blas=1.0=mkl
   - ca-certificates=2020.1.1=0
   - certifi=2020.4.5.2=py38_0
+  - click=7.1.2=py_0
   - intel-openmp=2019.4=233
   - libcxx=10.0.0=1
   - libedit=3.1.20191231=haf1e3a3_0
@@ -15,21 +18,33 @@ dependencies:
   - mkl-service=2.3.0=py38hfbe908c_0
   - mkl_fft=1.1.0=py38hc64f4ea_0
   - mkl_random=1.1.1=py38h959d312_0
+  - more-itertools=8.4.0=py_0
+  - mypy_extensions=0.4.3=py38_0
   - ncurses=6.2=h0a44026_1
   - numpy=1.18.1=py38h7241aed_0
   - numpy-base=1.18.1=py38h3304bdc_1
   - openssl=1.1.1g=h1de35cc_0
+  - packaging=20.4=py_0
   - pandas=1.0.4=py38h959d312_0
+  - pathspec=0.7.0=py_0
   - pip=20.1.1=py38_1
-  - pytest
+  - pluggy=0.13.1=py38_0
+  - py=1.8.2=py_0
+  - pyparsing=2.4.7=py_0
+  - pytest=5.4.3=py38_0
   - python=3.8.3=h26836e1_1
   - python-dateutil=2.8.1=py_0
   - pytz=2020.1=py_0
   - readline=8.0=h1de35cc_0
+  - regex=2020.5.14=py38haf1e3a3_0
   - setuptools=47.3.0=py38_0
   - six=1.15.0=py_0
   - sqlite=3.32.2=hffcf06c_0
   - tk=8.6.10=hb0a8c7a_0
+  - toml=0.10.0=py_0
+  - typed-ast=1.4.1=py38h1de35cc_0
+  - typing_extensions=3.7.4.1=py38_0
+  - wcwidth=0.2.4=py_0
   - wheel=0.34.2=py38_0
   - xz=5.2.5=h1de35cc_0
   - zlib=1.2.11=h1de35cc_3

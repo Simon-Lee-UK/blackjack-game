@@ -120,6 +120,9 @@ venv.bak/
 # PyCharm files
 .idea/
 
+# MacOS directory
+.DS_Store
+
 # Rope project settings
 .ropeproject
 

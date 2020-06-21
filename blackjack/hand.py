@@ -42,7 +42,9 @@ class Hand:
         for card in self._hand_array:
             indv_card_vals.append(card.return_card_value())
         for i in range(len(indv_card_vals)):
-        if isinstance(indv_card_vals[i], tuple):
-            # some code that processes the two values of a tuple
-        elif isinstance(indv_card_vals[i], str):
-            # some code that processes a value where the card was face-down and so returns the string: '*-*'
+            if isinstance(indv_card_vals[i], tuple):
+                # some code that processes the two values of a tuple
+                None
+            elif isinstance(indv_card_vals[i], str):
+                # some code that processes a value where the card was face-down and so returns the string: '*-*'
+                None

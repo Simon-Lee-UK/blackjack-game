@@ -2,7 +2,7 @@
 """
 import pandas as pd
 import numpy as np
-from card import Card
+from blackjack.card import Card
 from random import shuffle
 
 

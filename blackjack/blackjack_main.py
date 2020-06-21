@@ -6,8 +6,8 @@ describe the block of code below, they'll be super helpful for us as we collabor
 """
 import pandas as pd
 import numpy as np
-from deck import Deck
-from hand import Hand
+from blackjack.deck import Deck
+from blackjack.hand import Hand
 
 
 def main():

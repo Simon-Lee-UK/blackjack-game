@@ -119,6 +119,7 @@ venv.bak/
 
 # PyCharm files
 .idea/
+.idea/workspace.xml
 
 # MacOS directory
 .DS_Store

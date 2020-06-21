@@ -2,13 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="5a4484df-96ee-4965-8f69-f38b0862b59d" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/Blackjack.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Blackjack.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/blackjack_main.py" beforeDir="false" afterPath="$PROJECT_DIR$/blackjack/blackjack_main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/card.py" beforeDir="false" afterPath="$PROJECT_DIR$/blackjack/card.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/deck.py" beforeDir="false" afterPath="$PROJECT_DIR$/blackjack/deck.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/hand.py" beforeDir="false" afterPath="$PROJECT_DIR$/blackjack/hand.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/blackjack/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/blackjack/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/blackjack/blackjack_main.py" beforeDir="false" afterPath="$PROJECT_DIR$/blackjack/blackjack_main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/blackjack/deck.py" beforeDir="false" afterPath="$PROJECT_DIR$/blackjack/deck.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -33,11 +29,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/blackjack/deck.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="135">
-              <caret line="9" column="71" lean-forward="true" selection-start-line="9" selection-start-column="71" selection-end-line="9" selection-end-column="71" />
-              <folding>
-                <element signature="e#66#85#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="45">
+              <caret line="3" column="18" selection-start-line="3" selection-start-column="18" selection-end-line="3" selection-end-column="18" />
             </state>
           </provider>
         </entry>
@@ -57,13 +50,22 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/blackjack/hand.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-137" />
+            <state relative-caret-position="675">
+              <caret line="45" column="65" selection-start-line="45" selection-start-column="65" selection-end-line="45" selection-end-column="65" />
+            </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/blackjack/__init__.py">
-          <provider selected="true" editor-type-id="text-editor" />
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="45">
+              <caret line="3" selection-start-line="3" selection-end-line="3" />
+              <folding>
+                <element signature="e#0#31#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
@@ -114,6 +116,8 @@
         <option value="$PROJECT_DIR$/environment.yml" />
         <option value="$PROJECT_DIR$/.gitignore" />
         <option value="$PROJECT_DIR$/src/__init__.py" />
+        <option value="$PROJECT_DIR$/blackjack/hand.py" />
+        <option value="$PROJECT_DIR$/blackjack/__init__.py" />
         <option value="$PROJECT_DIR$/blackjack/blackjack_main.py" />
         <option value="$PROJECT_DIR$/blackjack/deck.py" />
       </list>
@@ -270,6 +274,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1440" height="812" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.22317597" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
@@ -357,6 +362,16 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/blackjack/__init__.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="45">
+          <caret line="3" selection-start-line="3" selection-end-line="3" />
+          <folding>
+            <element signature="e#0#31#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/README.md">
       <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
         <state split_layout="SPLIT">
@@ -367,22 +382,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/blackjack/deck.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
-          <caret line="9" column="71" lean-forward="true" selection-start-line="9" selection-start-column="71" selection-end-line="9" selection-end-column="71" />
-          <folding>
-            <element signature="e#66#85#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/blackjack/__init__.py">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/blackjack/hand.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-137" />
+        <state relative-caret-position="675">
+          <caret line="45" column="65" selection-start-line="45" selection-start-column="65" selection-end-line="45" selection-end-column="65" />
+        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/blackjack/card.py">
@@ -392,6 +396,13 @@
           <folding>
             <element signature="e#66#85#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/blackjack/deck.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="45">
+          <caret line="3" column="18" selection-start-line="3" selection-start-column="18" selection-end-line="3" selection-end-column="18" />
         </state>
       </provider>
     </entry>

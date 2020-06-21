@@ -9,6 +9,7 @@ from random import shuffle
 class Deck:
     """ A class defining the properties and methods of a deck object. *** Add method overview ***
     """
+
     def __init__(self):
         """ For now, creating a Deck object initialises that object with five arrays: '_deck_array', '_suit_array',
         '_rank_array', '_rank_short' and '_value_array' (the leading underscore is a Python convention; it hints that
@@ -22,10 +23,37 @@ class Deck:
         blackjack.
         """
         self._deck_array = []
-        self._suit_array = ['Spades', 'Hearts', 'Clubs', 'Diamonds']
-        self._rank_array = ['Ace', 'Two', 'Three', 'Four', 'Five', 'Six',
-                            'Seven', 'Eight', 'Nine', 'Ten', 'Jack', 'Queen', 'King']
-        self._rank_short = ['A', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K']
+        self._suit_array = ["Spades", "Hearts", "Clubs", "Diamonds"]
+        self._rank_array = [
+            "Ace",
+            "Two",
+            "Three",
+            "Four",
+            "Five",
+            "Six",
+            "Seven",
+            "Eight",
+            "Nine",
+            "Ten",
+            "Jack",
+            "Queen",
+            "King",
+        ]
+        self._rank_short = [
+            "A",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7",
+            "8",
+            "9",
+            "10",
+            "J",
+            "Q",
+            "K",
+        ]
         self._value_array = [(1, 11), 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10]
         self._deck_count = 1  # Defines how many 52-card decks are combined for the Blackjack deck (Casino normally 6)
         self.new_deck()
@@ -43,7 +71,9 @@ class Deck:
             for suit in self._suit_array:
                 j = 0
                 for rank, rank_sh in zip(self._rank_array, self._rank_short):
-                    self._deck_array.append(Card(suit, rank, rank_sh, self._value_array[j], i))
+                    self._deck_array.append(
+                        Card(suit, rank, rank_sh, self._value_array[j], i)
+                    )
                     #  self._deck_array[-1].print_all_card_details()  # Uncomment to print initial un-shuffled deck
                     j += 1
         self.shuffle_deck()  # Calls the 'shuffle_deck' method against the current Deck object (is this Pythonic code?)

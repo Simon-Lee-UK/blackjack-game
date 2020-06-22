@@ -7,7 +7,7 @@ dependencies:
   - black=19.10b0=py_0
   - blas=1.0=mkl
   - ca-certificates=2020.1.1=0
-  - certifi=2020.4.5.2=py38_0
+  - certifi=2020.6.20=py38_0
   - click=7.1.2=py_0
   - intel-openmp=2019.4=233
   - libcxx=10.0.0=1
@@ -37,13 +37,13 @@ dependencies:
   - pytz=2020.1=py_0
   - readline=8.0=h1de35cc_0
   - regex=2020.5.14=py38haf1e3a3_0
-  - setuptools=47.3.0=py38_0
+  - setuptools=47.3.1=py38_0
   - six=1.15.0=py_0
-  - sqlite=3.32.2=hffcf06c_0
+  - sqlite=3.32.3=hffcf06c_0
   - tk=8.6.10=hb0a8c7a_0
   - toml=0.10.0=py_0
   - typed-ast=1.4.1=py38h1de35cc_0
-  - typing_extensions=3.7.4.1=py38_0
+  - typing_extensions=3.7.4.2=py_0
   - wcwidth=0.2.4=py_0
   - wheel=0.34.2=py38_0
   - xz=5.2.5=h1de35cc_0

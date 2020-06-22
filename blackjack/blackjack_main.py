@@ -21,7 +21,8 @@ def main():
     hand is discarded. Makes sense for deck objects to have a 'deal' method. How will this correctly pass cards to a
     hand?
     """
-    first_deck = Deck()
+    number_of_decks = 1
+    first_deck = Deck(number_of_decks)
     first_deck.print_deck()  # This prints details of the cards in the deck - currently nice to check it's working OK
     single_round(
         first_deck

@@ -10,7 +10,7 @@ class Deck:
     """ A class defining the properties and methods of a deck object. *** Add method overview ***
     """
 
-    def __init__(self):
+    def __init__(self, input_deck_count):
         """ For now, creating a Deck object initialises that object with five arrays: '_deck_array', '_suit_array',
         '_rank_array', '_rank_short' and '_value_array' (the leading underscore is a Python convention; it hints that
         the variable is for internal use within the object's methods, i.e. it shouldn't be called when interacting
@@ -21,6 +21,11 @@ class Deck:
         '_suit_array' holds the four suits found in a pack of cards. The '_rank_array' holds the 13 ranks in each suit
         ('_rank_short' giving shortened version) and the '_value_array' holds their corresponding values in the game of
         blackjack.
+
+        Parameters
+        ----------
+        input_deck_count : int
+            The number of 52-card decks to be shuffled into a Deck object on initialisation
         """
         self._deck_array = []
         self._suit_array = ["Spades", "Hearts", "Clubs", "Diamonds"]
@@ -55,7 +60,9 @@ class Deck:
             "K",
         ]
         self._value_array = [(1, 11), 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10]
-        self._deck_count = 1  # Defines how many 52-card decks are combined for the Blackjack deck (Casino normally 6)
+        # Defines how many 52-card decks are combined for the Blackjack deck (Casino normally 6)
+        self._validate_deck_count(input_deck_count)
+        self._deck_count = input_deck_count
         self.new_deck()
 
     def new_deck(self):
@@ -94,3 +101,7 @@ class Deck:
         """
         for card in self._deck_array:
             card.print_all_card_details()
+
+    def _validate_deck_count(self, input_deck_count):
+        """ Ensures that deck count is a positive integer"""
+        assert (isinstance(input_deck_count, int)) & (input_deck_count > 0)

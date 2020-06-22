@@ -76,14 +76,13 @@ class Deck:
         # effectively clear-out the existing deck, replacing it with a fresh one
         for i in range(self._deck_count):
             for suit in self._suit_array:
-                j = 0
-                for rank, rank_sh in zip(self._rank_array, self._rank_short):
+                for j, (rank, rank_sh) in enumerate(
+                    zip(self._rank_array, self._rank_short)
+                ):
                     self._deck_array.append(
                         Card(suit, rank, rank_sh, self._value_array[j], i)
                     )
-                    #  self._deck_array[-1].print_all_card_details()  # Uncomment to print initial un-shuffled deck
-                    j += 1
-        self.shuffle_deck()  # Calls the 'shuffle_deck' method against the current Deck object (is this Pythonic code?)
+        self.shuffle_deck()  # Calls the 'shuffle_deck' method against the current Deck object
 
     def shuffle_deck(self):
         """ When called, applies a new random ordering to the Card objects contained within a Deck object. Uses a method

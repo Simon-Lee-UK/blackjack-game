@@ -24,22 +24,17 @@ class Card:
         """
         if self._rank == "Ace":
             print(
-                "{} of {} (Value = {} or {}, Deck# = {})".format(
-                    self._rank,
-                    self._suit.lower(),
-                    str(self._value[0]),
-                    str(self._value[1]),
-                    str(self._deck_num),
-                )
+                f"{self._rank} of {self._suit.lower()} "
+                f"(Value = {str(self._value[0])} or "
+                f"{str(self._value[1])}, "
+                f"Deck# = {str(self._deck_num)})"
             )
         else:
             print(
-                "{} of {} (Value = {}, Deck# = {})".format(
-                    self._rank,
-                    self._suit.lower(),
-                    str(self._value),
-                    str(self._deck_num),
-                )
+                f"{self._rank} of "
+                f"{self._suit.lower()} "
+                f"(Value = {str(self._value)}, "
+                f"Deck# = {str(self._deck_num)})"
             )
 
     def flip_card(self):
@@ -67,6 +62,6 @@ class Card:
         """ If card is currently face-up, returns details in shorthand notation, e.g.: 'K-H' denoting the King of
         hearts. If card is face-down, returns a consistent string to communicate this to the player."""
         if self._face_up:
-            return "{}-{}".format(self._rank_short, self._suit[0])
+            return f"{self._rank_short}-{self._suit[0]}"
         else:
             return "*-*"

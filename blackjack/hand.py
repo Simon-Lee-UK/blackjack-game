@@ -28,13 +28,9 @@ class Hand:
     def print_hand(self):
         """ Prints hand type followed by shorthand notation of all cards currently within the hand
         """
-        print("\n{}'s hand".format(self._type_id))
+        print(f"\n{self._type_id}'s hand")
         for i in range(len(self._hand_array)):
-            print(
-                "Card {}: {}".format(
-                    i, self._hand_array[i].return_shorthand_card_details()
-                )
-            )
+            print(f"Card {i}: {self._hand_array[i].return_shorthand_card_details()}")
 
     def hand_value(self):
         """ Returns the current numerical value of the target hand object.

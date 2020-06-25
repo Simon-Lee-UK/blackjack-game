@@ -8,7 +8,7 @@ from blackjack.deck import Deck
 def test_deck_length(deck_count, multiplier):
     expected_length = 52 * multiplier
     single_deck = Deck(deck_count)
-    real_length = len(single_deck._deck_array)
+    real_length = len(single_deck._live_deck)
     assert real_length == expected_length
 
 

@@ -99,7 +99,7 @@ class Deck:
         """ Prints details of all cards within the Deck object (top to bottom).
         """
         for card in self._live_deck:
-            card.print_all_card_details()
+            card.print_card_details()
 
     @staticmethod
     def _validate_deck_count(input_deck_count):

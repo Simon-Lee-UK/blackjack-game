@@ -30,18 +30,18 @@ class Hand:
         """
         print(f"\n{self._holder_role}'s hand")
         for idx, single_card in enumerate(self._live_hand):
-            print(f"Card {idx}: {single_card.return_shorthand_card_details()}")
+            print(f"Card {idx}: {single_card.short_card_details()}")
 
     def hand_value(self):
         """ Returns the current numerical value of the target hand object.
-        TODO: Between here and the 'return_card_value' method on card objects: need to account for situation where hand
+        TODO: Between here and the 'card_value' method on card objects: need to account for situation where hand
         TODO: value is unknown because one or more cards are face-down AND the case where you have one/more aces within
         TODO: the hand and hence the hand can have two/more possible values.
         """
         indv_card_vals = []
         poss_hand_vals = []
         for card in self._live_hand:
-            indv_card_vals.append(card.return_card_value())
+            indv_card_vals.append(card.card_value())
         for i in range(len(indv_card_vals)):
             if isinstance(indv_card_vals[i], tuple):
                 # some code that processes the two values of a tuple

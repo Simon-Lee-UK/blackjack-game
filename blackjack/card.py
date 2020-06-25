@@ -19,7 +19,7 @@ class Card:
         self._deck_num = input_deck_num + 1
         self._face_up = True  # This logical stores whether the card is face up (True) or face down (False)
 
-    def print_all_card_details(self):
+    def print_card_details(self):
         """ Prints the key attributes of a Card object, e.g.: 'Ace of diamonds (Value = 1 or 11, Deck# = 3)'
         """
         if self._rank == "Ace":
@@ -42,23 +42,23 @@ class Card:
         """
         self._face_up = not self._face_up
 
-    def return_card_value(self):
+    def card_value(self):
         """ Returns the value of the target card. Value can be a tuple (for an Ace) or an integer value (all other
         cards).
         """
         if self._face_up:
             return (
                 self._value
-            )  # TODO: Need to make this sensitive to orientation of card.
+            )
         else:
             return "*-*"
 
-    def return_card_orientation(self):
+    def is_face_up(self):
         """ Returns the current card orientation as a boolean (face-up = True, face-down = False)
         """
         return self._face_up
 
-    def return_shorthand_card_details(self):
+    def short_card_details(self):
         """ If card is currently face-up, returns details in shorthand notation, e.g.: 'K-H' denoting the King of
         hearts. If card is face-down, returns a consistent string to communicate this to the player."""
         if self._face_up:

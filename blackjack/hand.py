@@ -6,13 +6,13 @@ class Hand:
     """ A class defining the properties and methods of a hand object. *** Add method overview ***
     """
 
-    def __init__(self, hand_type):
+    def __init__(self, holder_role):
         """ On initialisation, a hand object is created with an empty array to hold store card objects associated with
-        the hand. The '_type_id' stores the so-called hand type: e.g. player or dealer, which is required as an input
+        the hand. The '_holder_role' stores the so-called hand type: e.g. player or dealer, which is required as an input
         argument when creating a hand object.
         """
-        self._hand_array = []
-        self._type_id = hand_type
+        self._live_hand = []
+        self._holder_role = holder_role
 
     def draw_card(self, deck_obj, face_dir):
         """ Calls the 'deal_card' method of an input deck object, deck returns single card object and deletes this card
@@ -23,14 +23,14 @@ class Hand:
         drawn_card = deck_obj.deal_card()
         if face_dir == "down":
             drawn_card.flip_card()
-        self._hand_array.append(drawn_card)
+        self._live_hand.append(drawn_card)
 
     def print_hand(self):
         """ Prints hand type followed by shorthand notation of all cards currently within the hand
         """
-        print(f"\n{self._type_id}'s hand")
-        for i in range(len(self._hand_array)):
-            print(f"Card {i}: {self._hand_array[i].return_shorthand_card_details()}")
+        print(f"\n{self._holder_role}'s hand")
+        for idx, single_card in enumerate(self._live_hand):
+            print(f"Card {idx}: {single_card.return_shorthand_card_details()}")
 
     def hand_value(self):
         """ Returns the current numerical value of the target hand object.
@@ -40,7 +40,7 @@ class Hand:
         """
         indv_card_vals = []
         poss_hand_vals = []
-        for card in self._hand_array:
+        for card in self._live_hand:
             indv_card_vals.append(card.return_card_value())
         for i in range(len(indv_card_vals)):
             if isinstance(indv_card_vals[i], tuple):

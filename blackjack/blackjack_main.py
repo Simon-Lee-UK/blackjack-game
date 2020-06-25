@@ -4,8 +4,6 @@ code are executed for each action required in a game of blackjack.  This is a do
 at the start of each module (like here) and also as the first line of classes, functions and methods.  The goal is to
 describe the block of code below, they'll be super helpful for us as we collaborate and start to get going.
 """
-import pandas as pd
-import numpy as np
 from blackjack import Deck
 from blackjack import Hand
 

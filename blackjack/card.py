@@ -1,7 +1,5 @@
 """This module contains the 'Card' class and related methods.
 """
-import pandas as pd
-import numpy as np
 
 
 class Card:

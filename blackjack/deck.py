@@ -1,7 +1,5 @@
 """This module contains the 'Deck' class and related methods.
 """
-import pandas as pd
-import numpy as np
 from blackjack import Card
 from random import shuffle
 

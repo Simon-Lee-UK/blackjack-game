@@ -28,8 +28,8 @@ class Deck:
             The number of 52-card decks to be shuffled into a Deck object on initialisation
         """
         self._deck_array = []
-        self._suit_array = ["Spades", "Hearts", "Clubs", "Diamonds"]
-        self._rank_array = [
+        self._suit_array = ("Spades", "Hearts", "Clubs", "Diamonds")
+        self._rank_array = (
             "Ace",
             "Two",
             "Three",
@@ -43,8 +43,8 @@ class Deck:
             "Jack",
             "Queen",
             "King",
-        ]
-        self._rank_short = [
+        )
+        self._rank_short = (
             "A",
             "2",
             "3",
@@ -58,8 +58,8 @@ class Deck:
             "J",
             "Q",
             "K",
-        ]
-        self._value_array = [(1, 11), 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10]
+        )
+        self._value_array = ((1, 11), 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10)
         # Defines how many 52-card decks are combined for the Blackjack deck (Casino normally 6)
         self._validate_deck_count(input_deck_count)
         self._deck_count = input_deck_count

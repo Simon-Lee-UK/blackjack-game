@@ -9,7 +9,8 @@ are defined in their own functions to improve readability: these are called as n
 Attributes
 ----------
 number_of_decks : int
-    The number of 52-card decks to shuffle into the dealer's initial deck object.
+    The number of 52-card decks that are shuffled into the dealer's deck object. This applies to the initial deck
+    created at the start of the game and any subsequent decks created when the previous decks runs out of cards.
     Casinos normally use 6 decks at a time.
 """
 

@@ -43,7 +43,7 @@ def main():
 
 def single_round(live_deck):
     """
-    Function steps through a single round of blackjack: accepting user actions and manipulating objects as required.
+    Steps through a single round of blackjack: accepting user inputs as actions and manipulating objects as required.
 
     --- Currently, not a full round. Just deals two cards to the player and two cards to the dealer then prints both
     hands. As these hands are defined within the 'single_round' function (and are not returned at the end), they only

@@ -1,9 +1,13 @@
-"""This module contains the 'Hand' class and related methods.
+"""
+This module exports the 'Hand' class and related methods.
 """
 
 
 class Hand:
-    """ A class defining the properties and methods of a hand object. *** Add method overview ***
+    """
+    A class defining the properties and methods of a hand object. *** Add method overview ***
+
+    The docstring for a class should summarize its behavior and list the public methods and instance variables.
     """
 
     def __init__(self, holder_role):

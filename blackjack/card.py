@@ -1,15 +1,37 @@
-"""This module contains the 'Card' class and related methods.
+"""
+This module exports the 'Card' class and related methods.
 """
 
 
 class Card:
-    """ A class defining the properties of a card object. On initialisation, the internal attributes for the suit, rank,
-    value and deck number of the Card are defined based on the input variables. By default, cards are created face up.
+    """
+    A class defining the properties and methods of a card object.
+
+    A single card object represents a single playing card. By default, cards are created face up, typically within
+    methods of the deck class. The suit, rank and value of a card object are defined at initialisation and must remain
+    constant for its lifetime. Card objects have methods to flip the card and print details of the card's suit, rank,
+    etc.
     """
 
     def __init__(
         self, input_suit, input_rank, input_rank_short, input_value, input_deck_num
     ):
+        """
+        Initialises a card object with attributes set by the input arguments.
+
+        Parameters
+        ----------
+        input_suit : str
+            description
+        input_rank : str
+            description
+        input_rank_short : str
+            description
+        input_value : int / tuple
+            description
+        input_deck_num : int
+            description
+        """
         self._suit = input_suit
         self._rank = input_rank
         self._rank_short = input_rank_short
@@ -18,8 +40,7 @@ class Card:
         self._face_up = True  # This logical stores whether the card is face up (True) or face down (False)
 
     def print_card_details(self):
-        """ Prints the key attributes of a Card object, e.g.: 'Ace of diamonds (Value = 1 or 11, Deck# = 3)'
-        """
+        """Prints verbose attributes of a Card object, e.g.: 'Ace of diamonds (Value = 1 or 11, Deck# = 3)'."""
         if self._rank == "Ace":
             print(
                 f"{self._rank} of {self._suit.lower()} "
@@ -36,29 +57,22 @@ class Card:
             )
 
     def flip_card(self):
-        """ 'Flips' the card object by setting '_face_up' to the opposite boolean value
-        """
+        """'Flips' the card object by setting '_face_up' to the opposite boolean value."""
         self._face_up = not self._face_up
 
     def card_value(self):
-        """ Returns the value of the target card. Value can be a tuple (for an Ace) or an integer value (all other
-        cards).
-        """
+        """Returns the value of the card. Value can be a tuple (for an Ace) or an integer value (all other cards)."""
         if self._face_up:
-            return (
-                self._value
-            )
+            return self._value
         else:
             return "*-*"
 
     def is_face_up(self):
-        """ Returns the current card orientation as a boolean (face-up = True, face-down = False)
-        """
+        """Returns the current card orientation as a boolean (face-up = True, face-down = False)."""
         return self._face_up
 
     def short_card_details(self):
-        """ If card is currently face-up, returns details in shorthand notation, e.g.: 'K-H' denoting the King of
-        hearts. If card is face-down, returns a consistent string to communicate this to the player."""
+        """If card is currently face-up, returns shorthand card details; if face-down returns a consistent string."""
         if self._face_up:
             return f"{self._rank_short}-{self._suit[0]}"
         else:

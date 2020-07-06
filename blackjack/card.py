@@ -22,21 +22,25 @@ class Card:
         Parameters
         ----------
         input_suit : str
-            description
+            Defines the card's suit e.g. 'Clubs'
         input_rank : str
-            description
+            Defines the card's rank e.g. 'Jack'
         input_rank_short : str
-            description
+            A shortened variant of the card's rank e.g. 'J'
         input_value : int / tuple
-            description
+            The value associated with the card's rank
+            Aces can take one of two values - these are input as a tuple: (1, 11)
         input_deck_num : int
-            description
+            Records which 52-card deck the card has been initialised for
+            i.e. no deck should have cards with identical values for: 'input_suit', 'input_rank' and 'input_deck_num'
         """
         self._suit = input_suit
         self._rank = input_rank
         self._rank_short = input_rank_short
         self._value = input_value
-        self._deck_num = input_deck_num + 1
+        self._deck_num = (
+            input_deck_num + 1
+        )  # Accounts for zero-indexing: _deck_num will be an integer >= 1
         self._face_up = True  # This logical stores whether the card is face up (True) or face down (False)
 
     def print_card_details(self):
@@ -61,7 +65,7 @@ class Card:
         self._face_up = not self._face_up
 
     def card_value(self):
-        """Returns the value of the card. Value can be a tuple (for an Ace) or an integer value (all other cards)."""
+        """If card is currently face-up, returns card value; if face-down returns a consistent string."""
         if self._face_up:
             return self._value
         else:

@@ -12,12 +12,15 @@ number_of_decks : int
     The number of 52-card decks that are shuffled into the dealer's deck object. This applies to the initial deck
     created at the start of the game and any subsequent decks created when the previous decks runs out of cards.
     Casinos normally use 6 decks at a time.
+face_directions : list[str]
+    A list holding the two possible card orientations as strings: face-up, and face-down
 """
 
 from blackjack import Deck
 from blackjack import Hand
 
 number_of_decks = 1
+face_directions = ["up", "down"]
 
 
 def main():
@@ -56,15 +59,11 @@ def single_round(live_deck):
         The game's 'live' deck object. All cards for this single round will be dealt from this deck.
 
     """
-    face_direction = [
-        "up",
-        "down",
-    ]  # Array storing two possible hand orientations: face-up and face-down
     players_hand = Hand("Player")  # Initialises a hand object for the player
     dealers_hand = Hand(
         "Dealer"
     )  # Initialises a hand object for the computer-controlled dealer
-    for direction in face_direction:
+    for direction in face_directions:
         players_hand.draw_card(live_deck, "up")
         dealers_hand.draw_card(
             live_deck, direction

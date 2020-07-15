@@ -33,6 +33,8 @@ class Hand:
         drawn card (face-up by default) calls its 'flip_card' method to ensure the card is correctly face-down before it
         it is appended to the hand array.
 
+        TODO: Create a method 'hit' which just calls this method with card always face-up
+
         Parameters
         ----------
         deck_obj : blackjack.deck.Deck

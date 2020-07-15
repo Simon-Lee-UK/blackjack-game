@@ -10,6 +10,8 @@ class Hand:
     A hand object is a collection of cards associated with either the dealer or the player. Within a round of blackjack,
     cards are added to a hand when the associated player chooses to 'hit'. The outcome of each round is determined by
     the relative values of the player's and dealer's hands.
+
+    TODO: Define a __getitem__ and __len__ method to make the Hand class iterable
     """
 
     def __init__(self, holder_role):

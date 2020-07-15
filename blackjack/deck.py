@@ -13,6 +13,8 @@ class Deck:
     cards are dealt from the deck to the dealer and player's hands. Cards dealt from the deck are not shuffled back
     in: when the deck size drops below a defined limit, a fresh shuffled deck object can be created to replace it using
     the new_deck() method.
+
+    TODO: Define a __getitem__ and __len__ method to make the Deck class iterable
     """
 
     def __init__(self, input_deck_count):

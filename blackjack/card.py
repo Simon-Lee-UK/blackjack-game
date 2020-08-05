@@ -41,7 +41,7 @@ class Card:
         self._deck_num = (
             input_deck_num + 1
         )  # Accounts for zero-indexing: _deck_num will be an integer >= 1
-        self._face_up = True  # This logical stores whether the card is face up (True) or face down (False)
+        self._face_up = True  # This boolean stores whether the card is face up (True) or face down (False)
 
     def print_card_details(self):
         """Prints verbose attributes of a Card object, e.g.: 'Ace of diamonds (Value = 1 or 11, Deck# = 3)'."""
@@ -70,6 +70,17 @@ class Card:
             return self._value
         else:
             return "*-*"
+
+    def is_ace(self):
+        """
+        Returns True if the card is an Ace, returns False otherwise.
+
+        TODO: Add card face-down privacy to this method
+        """
+        if self._rank == "Ace":
+            return True
+        else:
+            return False
 
     def is_face_up(self):
         """Returns the current card orientation as a boolean (face-up = True, face-down = False)."""

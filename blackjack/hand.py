@@ -57,20 +57,23 @@ class Hand:
 
     def hand_value(self):
         """
-        Returns the total value of the target hand by summing the values of all constituent card objects.
+        Returns the total value(s) of the target hand by summing the values of all constituent card objects.
 
         TODO: Between here and the 'card_value' method on card objects: need to account for situation where hand
         TODO: value is unknown because one or more cards are face-down AND the case where you have one/more aces within
         TODO: the hand and hence the hand can have two/more possible values.
         """
-        indv_card_vals = []
-        poss_hand_vals = []
+        hand_value_list = [0]
+        value_possibility_list = []
         for card in self._live_hand:
-            indv_card_vals.append(card.card_value())
-        for i in range(len(indv_card_vals)):
-            if isinstance(indv_card_vals[i], tuple):
-                # some code that processes the two values of a tuple
-                None
-            elif isinstance(indv_card_vals[i], str):
-                # some code that processes a value where the card was face-down and so returns the string: '*-*'
-                None
+            for idx, value in enumerate(hand_value_list):
+                if card.is_ace():
+                    element_possibilities = [
+                        value + ace_val for ace_val in card.card_value()
+                    ]
+                else:
+                    element_possibilities = [value + card.card_value()]
+                value_possibility_list.extend(element_possibilities)
+            hand_value_list = value_possibility_list
+
+        return set(hand_value_list.sort())

@@ -75,7 +75,7 @@ class Card:
         """
         Returns True if the card is an Ace, returns False otherwise.
 
-        TODO: Add card face-down privacy to this method
+        TODO: Add card face-down privacy to this method?
         """
         if self._rank == "Ace":
             return True

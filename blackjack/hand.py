@@ -63,17 +63,28 @@ class Hand:
         TODO: value is unknown because one or more cards are face-down AND the case where you have one/more aces within
         TODO: the hand and hence the hand can have two/more possible values.
         """
-        hand_value_list = [0]
-        value_possibility_list = []
+        ace_count = 0
+        non_ace_sum = 0
         for card in self._live_hand:
-            for idx, value in enumerate(hand_value_list):
-                if card.is_ace():
-                    element_possibilities = [
-                        value + ace_val for ace_val in card.card_value()
-                    ]
-                else:
-                    element_possibilities = [value + card.card_value()]
-                value_possibility_list.extend(element_possibilities)
-            hand_value_list = value_possibility_list
-
-        return set(hand_value_list.sort())
+            if card.is_ace():
+                ace_count += 1
+                ace_values = card.card_value()
+            else:
+                non_ace_sum += card.card_value()
+        if ace_count > 0:
+            ace_sum_possibilities = [0]
+            for ace_idx in range(ace_count):
+                first_set = [ace_values[0] + ace_sum_element for ace_sum_element in ace_sum_possibilities]
+                second_set = [ace_values[1] + ace_sum_element for ace_sum_element in ace_sum_possibilities]
+                ace_sum_possibilities = list(set(first_set + second_set))
+    
+    # def _ace_count(self):
+    #     """
+    #     Counts the number of aces in a hand; if any cards in the hand are face-down, returns '*-*'.
+    #     TODO: Add card face-down privacy to this method?
+    #     """
+    #     count = 0
+    #     for card in self._live_hand:
+    #         if card.is_ace():
+    #             count += 1
+    #     return count

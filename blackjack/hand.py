@@ -37,21 +37,36 @@ class Hand:
         """
         ace_count = 0
         ace_values = None
+        face_down_count = 0
         non_ace_sum = 0
         for card in self._live_hand:
-            if card.is_ace():
-                ace_count += 1
-                ace_values = card.card_value()
-            else:
-                non_ace_sum += card.card_value()
+            # Try statement catches TypeErrors thrown when 'is_ace' method encounters a face-down card
+            try:
+                if card.is_ace():
+                    ace_count += 1
+                    ace_values = card.card_value()
+                else:
+                    non_ace_sum += card.card_value()
+            except TypeError:
+                face_down_count += 1
+        # This if-else block defines a list of possible values associated with all face-up cards in the hand
         if ace_count > 0:
             ace_sum_possibilities = self._calculate_ace_values(ace_count, ace_values)
             ace_sum = [
                 possibility + non_ace_sum for possibility in ace_sum_possibilities
             ]
-            return ace_sum
+            hand_value_list = ace_sum
         else:
-            return [non_ace_sum]
+            hand_value_list = [non_ace_sum]
+
+        # Where the hand contains face-down cards, this block adds the consistent face-down string to the face-up values
+        if face_down_count > 0:
+            face_down_value_list = [
+                str(value) + " + *-*" * face_down_count for value in hand_value_list
+            ]
+            return face_down_value_list
+        else:
+            return hand_value_list
 
     def draw_card(self, deck_obj, face_dir):
         """

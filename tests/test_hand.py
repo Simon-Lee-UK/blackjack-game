@@ -16,8 +16,9 @@ def test_hand_value_double_ace(hand_2ace_fixture):
     assert hand_2ace_fixture.hand_value == [2, 12, 22]
 
 
-def test_hand_value_quad_ace(quad_ace_fixture):
-    assert quad_ace_fixture.hand_value == [4, 14, 24, 34, 44]
+def test_hand_value_quad_ace(hand_4ace_fixture):
+    assert hand_4ace_fixture.hand_value == [4, 14, 24, 34, 44]
+
 
 def test_facedown_hand_value(hand_facedown_fixture):
     assert hand_facedown_fixture.hand_value == ["3 + *-*"]

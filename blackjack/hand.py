@@ -59,9 +59,10 @@ class Hand:
         """
         Returns the total value(s) of the target hand by summing the values of all constituent card objects.
 
-        TODO: Between here and the 'card_value' method on card objects: need to account for situation where hand
-        TODO: value is unknown because one or more cards are face-down AND the case where you have one/more aces within
-        TODO: the hand and hence the hand can have two/more possible values.
+        TODO: Add card face-down privacy to this method?
+        TODO: Refactor to allow any number of possible ace values (additional loop over keys of dict?)
+        TODO: Break-off section calculating 'ace_sum_possibilities' into a separate function
+        TODO: Trigger this function each time a card is added to a hand, updating value of an object attribute
         """
         ace_count = 0
         non_ace_sum = 0
@@ -74,17 +75,19 @@ class Hand:
         if ace_count > 0:
             ace_sum_possibilities = [0]
             for ace_idx in range(ace_count):
-                first_set = [ace_values[0] + ace_sum_element for ace_sum_element in ace_sum_possibilities]
-                second_set = [ace_values[1] + ace_sum_element for ace_sum_element in ace_sum_possibilities]
+                first_set = [
+                    ace_values[0] + ace_sum_element
+                    for ace_sum_element in ace_sum_possibilities
+                ]
+                second_set = [
+                    ace_values[1] + ace_sum_element
+                    for ace_sum_element in ace_sum_possibilities
+                ]
                 ace_sum_possibilities = list(set(first_set + second_set))
-    
-    # def _ace_count(self):
-    #     """
-    #     Counts the number of aces in a hand; if any cards in the hand are face-down, returns '*-*'.
-    #     TODO: Add card face-down privacy to this method?
-    #     """
-    #     count = 0
-    #     for card in self._live_hand:
-    #         if card.is_ace():
-    #             count += 1
-    #     return count
+                ace_sum_possibilities.sort()
+                ace_sum = [
+                    possibility + non_ace_sum for possibility in ace_sum_possibilities
+                ]
+            return ace_sum
+        else:
+            return [non_ace_sum]

@@ -23,6 +23,12 @@ def queen_spades_fixture():
 def three_clubs_fixture():
     return Card("Clubs", "Three", "3", 3, 0)
 
+@pytest.fixture
+def facedown_ace_fixture():
+    facedown_ace = Card("Hearts", "Ace", "A", (1, 11), 0)
+    facedown_ace.flip_card()
+    return facedown_ace
+
 
 @pytest.fixture
 def hand_13_fixture(three_clubs_fixture, queen_spades_fixture):
@@ -32,21 +38,21 @@ def hand_13_fixture(three_clubs_fixture, queen_spades_fixture):
 
 
 @pytest.fixture
-def single_ace_fixture(ace_spades_fixture, queen_spades_fixture):
+def hand_1ace_fixture(ace_spades_fixture, queen_spades_fixture):
     hand_single_ace = Hand("Player")
     hand_single_ace._live_hand.extend([ace_spades_fixture, queen_spades_fixture])
     return hand_single_ace
 
 
 @pytest.fixture
-def double_ace_fixture(ace_spades_fixture, ace_diamonds_fixture):
+def hand_2ace_fixture(ace_spades_fixture, ace_diamonds_fixture):
     hand_double_ace = Hand("Player")
     hand_double_ace._live_hand.extend([ace_spades_fixture, ace_diamonds_fixture])
     return hand_double_ace
 
 
 @pytest.fixture
-def quad_ace_fixture(ace_spades_fixture, ace_diamonds_fixture):
+def hand_4ace_fixture(ace_spades_fixture, ace_diamonds_fixture):
     hand_quad_ace = Hand("Player")
     hand_quad_ace._live_hand.extend(
         [
@@ -57,3 +63,10 @@ def quad_ace_fixture(ace_spades_fixture, ace_diamonds_fixture):
         ]
     )
     return hand_quad_ace
+
+
+@pytest.fixture
+def hand_facedown_fixture(three_clubs_fixture, facedown_ace_fixture):
+    hand_facedown = Hand("Dealer")
+    hand_facedown._live_hand.extend([three_clubs_fixture, facedown_ace_fixture])
+    return hand_facedown

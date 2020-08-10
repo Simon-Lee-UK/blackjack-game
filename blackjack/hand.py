@@ -26,43 +26,10 @@ class Hand:
         self._live_hand = (
             []
         )  # A list of card objects making up the hand; initialised as an empty list
-        self._hand_value = (
-            self.calculate_hand_value()
-        )  # An attribute holding the current value(s) of the live hand
         self._holder_role = holder_role
 
-    def draw_card(self, deck_obj, face_dir):
-        """
-        Removes one card from the input deck and adds this card to the hand with orientation defined by 'face_dir'.
-
-        Calls the 'deal_card' method of an input deck object, the deck returns a single card object and deletes this
-        card from the deck. If the 'face_dir' input argument requires the hand to be dealt face-down, the freshly
-        drawn card (face-up by default) calls its 'flip_card' method to ensure the card is correctly face-down before it
-        it is appended to the hand array.
-
-        TODO: Create a method 'hit' which just calls this method with card always face-up
-
-        Parameters
-        ----------
-        deck_obj : blackjack.deck.Deck
-            The game's 'live' deck object - a card will be removed from this deck and added to the current hand object
-        face_dir : str
-            Determines whether the card is added to the hand face-up or face-down; takes value 'up' or 'down'
-        """
-        drawn_card = deck_obj.deal_card()
-        if face_dir == "down":
-            drawn_card.flip_card()
-        self._live_hand.append(drawn_card)
-        self._hand_value = self.calculate_hand_value()
-
-    def print_hand(self):
-        """Prints the hand's owner followed by shorthand details of all cards currently within the hand."""
-        print(f"\n{self._holder_role}'s hand")
-        for idx, single_card in enumerate(self._live_hand):
-            print(f"Card {idx}: {single_card.short_card_details()}")
-        print(f"Value: {self._hand_value}")
-
-    def calculate_hand_value(self):
+    @property
+    def hand_value(self):
         """
         Returns the total value(s) of the target hand by summing the values of all constituent card objects.
 
@@ -86,6 +53,36 @@ class Hand:
             return ace_sum
         else:
             return [non_ace_sum]
+
+    def draw_card(self, deck_obj, face_dir):
+        """
+        Removes one card from the input deck and adds this card to the hand with orientation defined by 'face_dir'.
+
+        Calls the 'deal_card' method of an input deck object, the deck returns a single card object and deletes this
+        card from the deck. If the 'face_dir' input argument requires the hand to be dealt face-down, the freshly
+        drawn card (face-up by default) calls its 'flip_card' method to ensure the card is correctly face-down before it
+        it is appended to the hand array.
+
+        TODO: Create a method 'hit' which just calls this method with card always face-up
+
+        Parameters
+        ----------
+        deck_obj : blackjack.deck.Deck
+            The game's 'live' deck object - a card will be removed from this deck and added to the current hand object
+        face_dir : str
+            Determines whether the card is added to the hand face-up or face-down; takes value 'up' or 'down'
+        """
+        drawn_card = deck_obj.deal_card()
+        if face_dir == "down":
+            drawn_card.flip_card()
+        self._live_hand.append(drawn_card)
+
+    def print_hand(self):
+        """Prints the hand's owner followed by shorthand details of all cards currently within the hand."""
+        print(f"\n{self._holder_role}'s hand")
+        for idx, single_card in enumerate(self._live_hand):
+            print(f"Card {idx}: {single_card.short_card_details()}")
+        print(f"Value: {self._hand_value}")
 
     @staticmethod
     def _calculate_ace_values(ace_count, ace_values):

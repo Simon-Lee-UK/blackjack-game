@@ -23,7 +23,12 @@ class Hand:
         holder_role : str
             Defines the owner, or 'holder', of the hand object being created: either 'Player' or 'Dealer'
         """
-        self._live_hand = []
+        self._live_hand = (
+            []
+        )  # A list of card objects making up the hand; initialised as an empty list
+        self._hand_value = (
+            self.calculate_hand_value()
+        )  # An attribute holding the current value(s) of the live hand
         self._holder_role = holder_role
 
     def draw_card(self, deck_obj, face_dir):
@@ -48,23 +53,24 @@ class Hand:
         if face_dir == "down":
             drawn_card.flip_card()
         self._live_hand.append(drawn_card)
+        self._hand_value = self.calculate_hand_value()
 
     def print_hand(self):
         """Prints the hand's owner followed by shorthand details of all cards currently within the hand."""
         print(f"\n{self._holder_role}'s hand")
         for idx, single_card in enumerate(self._live_hand):
             print(f"Card {idx}: {single_card.short_card_details()}")
+        print(f"Value: {self._hand_value}")
 
-    def hand_value(self):
+    def calculate_hand_value(self):
         """
         Returns the total value(s) of the target hand by summing the values of all constituent card objects.
 
         TODO: Add card face-down privacy to this method?
         TODO: Refactor to allow any number of possible ace values (additional loop over keys of dict?)
-        TODO: Break-off section calculating 'ace_sum_possibilities' into a separate function
-        TODO: Trigger this function each time a card is added to a hand, updating value of an object attribute
         """
         ace_count = 0
+        ace_values = None
         non_ace_sum = 0
         for card in self._live_hand:
             if card.is_ace():
@@ -73,21 +79,36 @@ class Hand:
             else:
                 non_ace_sum += card.card_value()
         if ace_count > 0:
-            ace_sum_possibilities = [0]
-            for ace_idx in range(ace_count):
-                first_set = [
-                    ace_values[0] + ace_sum_element
-                    for ace_sum_element in ace_sum_possibilities
-                ]
-                second_set = [
-                    ace_values[1] + ace_sum_element
-                    for ace_sum_element in ace_sum_possibilities
-                ]
-                ace_sum_possibilities = list(set(first_set + second_set))
-                ace_sum_possibilities.sort()
-                ace_sum = [
-                    possibility + non_ace_sum for possibility in ace_sum_possibilities
-                ]
+            ace_sum_possibilities = self._calculate_ace_values(ace_count, ace_values)
+            ace_sum = [
+                possibility + non_ace_sum for possibility in ace_sum_possibilities
+            ]
             return ace_sum
         else:
             return [non_ace_sum]
+
+    @staticmethod
+    def _calculate_ace_values(ace_count, ace_values):
+        """
+        Returns the possible values of a collection of ace cards as a sorted list.
+
+        Parameters
+        ----------
+        ace_count : int
+            The number of ace cards to calculate possible summed values for.
+        ace_values : tuple
+            A tuple containing the possible card values an ace can take e.g. (1, 11)
+        """
+        ace_sum_possibilities = [0]
+        for ace_idx in range(ace_count):
+            first_set = [
+                ace_values[0] + ace_sum_element
+                for ace_sum_element in ace_sum_possibilities
+            ]
+            second_set = [
+                ace_values[1] + ace_sum_element
+                for ace_sum_element in ace_sum_possibilities
+            ]
+            ace_sum_possibilities = list(set(first_set + second_set))
+            ace_sum_possibilities.sort()
+        return ace_sum_possibilities

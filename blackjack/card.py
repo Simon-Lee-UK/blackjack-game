@@ -72,15 +72,13 @@ class Card:
             return "*-*"
 
     def is_ace(self):
-        """
-        Returns True if the card is an Ace, returns False otherwise.
-
-        TODO: Add card face-down privacy to this method?
-        """
-        if self._rank == "Ace":
+        """Returns True if the card is an Ace, returns False otherwise."""
+        if self._rank == "Ace" and self.is_face_up():
             return True
-        else:
+        elif self._rank != "Ace" and self.is_face_up():
             return False
+        else:
+            raise TypeError("Cannot resolve 'is_ace': card is face down.")
 
     def is_face_up(self):
         """Returns the current card orientation as a boolean (face-up = True, face-down = False)."""

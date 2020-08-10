@@ -34,7 +34,6 @@ class Hand:
         Returns the total value(s) of the target hand by summing the values of all constituent card objects.
 
         TODO: Add card face-down privacy to this method?
-        TODO: Refactor to allow any number of possible ace values (additional loop over keys of dict?)
         """
         ace_count = 0
         ace_values = None
@@ -82,7 +81,7 @@ class Hand:
         print(f"\n{self._holder_role}'s hand")
         for idx, single_card in enumerate(self._live_hand):
             print(f"Card {idx}: {single_card.short_card_details()}")
-        print(f"Value: {self._hand_value}")
+        print(f"Value: {self.hand_value}")
 
     @staticmethod
     def _calculate_ace_values(ace_count, ace_values):
@@ -94,7 +93,9 @@ class Hand:
         ace_count : int
             The number of ace cards to calculate possible summed values for.
         ace_values : tuple
-            A tuple containing the possible card values an ace can take e.g. (1, 11)
+            A two-element tuple containing the possible card values an ace can take e.g. (1, 11)
+
+        TODO: Refactor to allow any number of possible ace values (additional loop over keys of dict?)
         """
         ace_sum_possibilities = [0]
         for ace_idx in range(ace_count):

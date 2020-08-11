@@ -22,3 +22,13 @@ def test_hand_value_quad_ace(hand_4ace_fixture):
 
 def test_facedown_hand_value(hand_facedown_fixture):
     assert hand_facedown_fixture.hand_value == ["3 + *-*"]
+
+
+def test_iter_method(hand_4ace_fixture):
+    for idx, card in enumerate(hand_4ace_fixture):
+        None
+    assert idx == 3
+
+
+def test_len_method(hand_4ace_fixture):
+    assert len(hand_4ace_fixture) == 4

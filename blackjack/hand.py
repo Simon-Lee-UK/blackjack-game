@@ -10,8 +10,6 @@ class Hand:
     A hand object is a collection of cards associated with either the dealer or the player. Within a round of blackjack,
     cards are added to a hand when the associated player chooses to 'hit'. The outcome of each round is determined by
     the relative values of the player's and dealer's hands.
-
-    TODO: Define a __getitem__ and __len__ method to make the Hand class iterable
     """
 
     def __init__(self, holder_role):
@@ -27,6 +25,16 @@ class Hand:
             []
         )  # A list of card objects making up the hand; initialised as an empty list
         self._holder_role = holder_role
+
+    def __iter__(self):
+        for card in self._live_hand:
+            yield card
+
+    def __repr__(self):
+        return self.print_hand()
+
+    def __len__(self):
+        return len(self._live_hand)
 
     @property
     def hand_value(self):
@@ -77,6 +85,7 @@ class Hand:
         it is appended to the hand array.
 
         TODO: Create a method 'hit' which just calls this method with card always face-up
+        TODO: Alternatively? Rename this method to 'hit' and give face_dir a default value of 'up'
 
         Parameters
         ----------
@@ -92,10 +101,12 @@ class Hand:
 
     def print_hand(self):
         """Prints the hand's owner followed by shorthand details of all cards currently within the hand."""
+        empty_string = ""  # Returning an empty string lets us call this method from __repr__ and separates w/ newline
         print(f"\n{self._holder_role}'s hand")
         for idx, single_card in enumerate(self._live_hand):
             print(f"Card {idx}: {single_card.short_card_details()}")
         print(f"Value: {self.hand_value}")
+        return empty_string
 
     @staticmethod
     def _calculate_ace_values(ace_count, ace_values):

@@ -45,7 +45,7 @@ class Hand:
         non_ace_sum = 0
 
         # Loop: counts number of face-down cards in the hand; counts face-up aces; sums face-up cards that aren't an ace
-        for card in self._live_hand:
+        for card in self:
             # Try statement catches TypeErrors thrown when 'is_ace' method encounters a face-down card
             try:
                 if card.is_ace():
@@ -103,7 +103,7 @@ class Hand:
         """Prints the hand's owner followed by shorthand details of all cards currently within the hand."""
         empty_string = ""  # Returning an empty string lets us call this method from __repr__ and separates w/ newline
         print(f"\n{self._holder_role}'s hand")
-        for idx, single_card in enumerate(self._live_hand):
+        for idx, single_card in enumerate(self):
             print(f"Card {idx}: {single_card.short_card_details()}")
         print(f"Value: {self.hand_value}")
         return empty_string

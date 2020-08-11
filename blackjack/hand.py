@@ -30,15 +30,13 @@ class Hand:
 
     @property
     def hand_value(self):
-        """
-        Returns the total value(s) of the target hand by summing the values of all constituent card objects.
-
-        TODO: Add card face-down privacy to this method?
-        """
+        """Returns the total value(s) of the target hand by summing the values of all constituent card objects."""
         ace_count = 0
         ace_values = None
         face_down_count = 0
         non_ace_sum = 0
+
+        # Loop: counts number of face-down cards in the hand; counts face-up aces; sums face-up cards that aren't an ace
         for card in self._live_hand:
             # Try statement catches TypeErrors thrown when 'is_ace' method encounters a face-down card
             try:
@@ -49,6 +47,7 @@ class Hand:
                     non_ace_sum += card.card_value()
             except TypeError:
                 face_down_count += 1
+
         # This if-else block defines a list of possible values associated with all face-up cards in the hand
         if ace_count > 0:
             ace_sum_possibilities = self._calculate_ace_values(ace_count, ace_values)

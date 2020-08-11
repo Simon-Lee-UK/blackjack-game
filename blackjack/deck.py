@@ -14,7 +14,7 @@ class Deck:
     in: when the deck size drops below a defined limit, a fresh shuffled deck object can be created to replace it using
     the new_deck() method.
 
-    TODO: Define a __getitem__ and __len__ method to make the Deck class iterable
+    TODO: Define magic methods like those already included for the Hand class
     """
 
     def __init__(self, input_deck_count):

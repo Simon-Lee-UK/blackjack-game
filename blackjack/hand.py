@@ -27,18 +27,25 @@ class Hand:
         self._holder_role = holder_role
 
     def __iter__(self):
+        """Allows hand objects to be iterated over, yielding constituent card objects in the order they were added."""
         for card in self._live_hand:
             yield card
 
     def __repr__(self):
+        """Entering the reference for a hand object in the terminal triggers this method, printing all hand details."""
         return self.print_hand()
 
     def __len__(self):
+        """Allows len() to be used on hand objects, returning the number of cards in the hand as the object 'length'."""
         return len(self._live_hand)
 
     @property
     def hand_value(self):
-        """Returns the total value(s) of the target hand by summing the values of all constituent card objects."""
+        """
+        Returns the total value(s) of the target hand by summing the values of all constituent card objects.
+
+        TODO: Add documentation of return value here and for all other methods in the project
+        """
         ace_count = 0
         ace_values = None
         face_down_count = 0
@@ -68,12 +75,11 @@ class Hand:
 
         # Where the hand contains face-down cards, this block adds the consistent face-down string to the face-up values
         if face_down_count > 0:
-            face_down_value_list = [
+            hand_value_list = [
                 str(value) + " + *-*" * face_down_count for value in hand_value_list
             ]
-            return face_down_value_list
-        else:
-            return hand_value_list
+
+        return hand_value_list
 
     def draw_card(self, deck_obj, face_dir):
         """

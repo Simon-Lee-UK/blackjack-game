@@ -19,7 +19,7 @@ class Hand:
         Parameters
         ----------
         holder_role : str
-            Defines the owner, or 'holder', of the hand object being created: either 'Player' or 'Dealer'
+            Defines the owner, or 'holder', of the hand object being created: either 'Player' or 'Dealer'.
         """
         self._live_hand = (
             []
@@ -27,12 +27,26 @@ class Hand:
         self._holder_role = holder_role
 
     def __iter__(self):
-        """Allows hand objects to be iterated over, yielding constituent card objects in the order they were added."""
+        """
+        Allows hand objects to be iterated over, yielding constituent card objects in the order they were added.
+
+        Yields
+        ------
+            card : blackjack.card.Card
+                The next card in the hand (within the hand object's '_live_hand' attribute).
+        """
         for card in self._live_hand:
             yield card
 
     def __repr__(self):
-        """Entering the reference for a hand object in the terminal triggers this method, printing all hand details."""
+        """
+        Entering the reference for a hand object in the terminal triggers this method, printing all hand details.
+
+        Returns
+        -------
+            Output of 'print_hand' method : str
+                Prints the hand's owner followed by shorthand details of all cards currently within the hand.
+        """
         return self.print_hand()
 
     def __len__(self):
@@ -44,7 +58,12 @@ class Hand:
         """
         Returns the total value(s) of the target hand by summing the values of all constituent card objects.
 
-        TODO: Add documentation of return value here and for all other methods in the project
+        Returns
+        -------
+        hand_value_list : list
+            A list containing all possible values the hand's combination of cards can take with no duplicates. For a
+            hand with all cards face-up: returns a list of integers. For hands with any cards face-down: returns a
+            list of strings.
         """
         ace_count = 0
         ace_values = None
@@ -96,9 +115,9 @@ class Hand:
         Parameters
         ----------
         deck_obj : blackjack.deck.Deck
-            The game's 'live' deck object - a card will be removed from this deck and added to the current hand object
+            The game's 'live' deck object - a card will be removed from this deck and added to the current hand object.
         face_dir : str
-            Determines whether the card is added to the hand face-up or face-down; takes value 'up' or 'down'
+            Determines whether the card is added to the hand face-up or face-down; takes value 'up' or 'down'.
         """
         drawn_card = deck_obj.deal_card()
         if face_dir == "down":
@@ -106,8 +125,16 @@ class Hand:
         self._live_hand.append(drawn_card)
 
     def print_hand(self):
-        """Prints the hand's owner followed by shorthand details of all cards currently within the hand."""
-        empty_string = ""  # Returning an empty string lets us call this method from __repr__ and separates w/ newline
+        """
+        Prints the hand's owner followed by shorthand details of all cards currently within the hand.
+
+        Returns
+        -------
+        empty_string : str
+            An empty string, returned so that the 'print_hand' method can be called by the Hand class' __repr__
+            method which must return a string-like object.
+        """
+        empty_string = ""
         print(f"\n{self._holder_role}'s hand")
         for idx, single_card in enumerate(self):
             print(f"Card {idx}: {single_card.short_card_details()}")
@@ -124,7 +151,12 @@ class Hand:
         ace_count : int
             The number of ace cards to calculate possible summed values for.
         ace_values : tuple
-            A two-element tuple containing the possible card values an ace can take e.g. (1, 11)
+            A two-element tuple containing the possible card values an ace can take e.g. (1, 11).
+
+        Returns
+        -------
+        ace_sum_possibilities : list of int
+            A list containing each value 'ace_count' number of aces can combine to make.
 
         TODO: Refactor to allow any number of possible ace values (additional loop over keys of dict?)
         """

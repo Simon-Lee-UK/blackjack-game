@@ -1,5 +1,5 @@
 """
-This module exports the 'Hand' class and related methods.
+This module exports the 'Hand' class, 'PlayerHand' and 'DealerHand' subclasses, and related methods.
 """
 
 
@@ -12,7 +12,7 @@ class Hand:
     the relative values of the player's and dealer's hands.
     """
 
-    def __init__(self, holder_role):
+    def __init__(self, holder_role="Player"):
         """
         Initialises an empty hand object for a given participant.
 
@@ -20,6 +20,7 @@ class Hand:
         ----------
         holder_role : str
             Defines the owner, or 'holder', of the hand object being created: either 'Player' or 'Dealer'.
+            Defaults to 'Player'.
         """
         self._live_hand = (
             []
@@ -109,9 +110,6 @@ class Hand:
         drawn card (face-up by default) calls its 'flip_card' method to ensure the card is correctly face-down before it
         it is appended to the hand array.
 
-        TODO: Create a method 'hit' which just calls this method with card always face-up
-        TODO: Alternatively? Rename this method to 'hit' and give face_dir a default value of 'up'
-
         Parameters
         ----------
         deck_obj : blackjack.deck.Deck
@@ -175,3 +173,40 @@ class Hand:
             ace_sum_possibilities = list(set(first_set + second_set))
             ace_sum_possibilities.sort()
         return ace_sum_possibilities
+
+
+class DealerHand(Hand):
+    """
+    A subclass defining the properties and methods specific to a hand object held by the dealer.
+
+    The dealer's hand is unique because: the first card dealt to the dealer will always be dealt face-down;
+    the dealer's turn in a single round must be resolved automatically.
+    """
+
+    def __init__(self):
+        """Calls the __init__ method of the base Hand class, initialising an empty hand object for the dealer."""
+        super().__init__("Dealer")
+
+    def draw_card(self, deck_obj, face_dir=None):
+        """
+        Removes one card from the input deck and adds this card to the hand with orientation defined by 'face_dir'.
+
+        Parameters
+        ----------
+        deck_obj : blackjack.deck.Deck
+            The game's 'live' deck object - a card will be removed from this deck and added to the dealer's hand object.
+        face_dir : None / str
+            Defines whether card is added to the hand face-up or face-down. By default, 'face_dir' is None when
+            method is called against a dealer's hand object. Where None, the orientation of the card is determined
+            by the number of cards currently in the dealer's hand. If the dealer currently has zero cards in their
+            hand, the card is dealt face-down; otherwise face-up. If the method is called with face_dir specified, it
+            behaves identically to the equivalent method on the base Hand class.
+        """
+        if face_dir:
+            super().draw_card(deck_obj, face_dir)
+        elif len(self) == 0:
+            face_dir = "down"
+            super().draw_card(deck_obj, face_dir)
+        else:
+            face_dir = "up"
+            super().draw_card(deck_obj, face_dir)

@@ -12,15 +12,12 @@ number_of_decks : int
     The number of 52-card decks that are shuffled into the dealer's deck object. This applies to the initial deck
     created at the start of the game and any subsequent decks created when the previous decks runs out of cards.
     Casinos normally use 6 decks at a time.
-face_directions : list[str]
-    A list holding the two possible card orientations as strings: face-up, and face-down
 """
 
 from blackjack import Deck
-from blackjack import Hand
+from blackjack import Hand, DealerHand
 
 number_of_decks = 1
-face_directions = ["up", "down"]
 
 
 def main():
@@ -34,8 +31,7 @@ def main():
     until another new deck is required. ---
 
     --- Current idea for hands is to have a small list of objects that is appended when dealt to and cleared out when
-    the hand is discarded. Makes sense for deck objects to have a 'deal' method. How will this correctly pass cards to a
-    hand? ---
+    the hand is discarded. ---
     """
     first_deck = Deck(number_of_decks)
     first_deck.print_deck()  # This prints details of the cards in the deck - currently nice to check it's working OK
@@ -59,15 +55,14 @@ def single_round(live_deck):
         The game's 'live' deck object. All cards for this single round will be dealt from this deck.
 
     """
-    players_hand = Hand("Player")  # Initialises a hand object for the player
-    dealers_hand = Hand(
-        "Dealer"
-    )  # Initialises a hand object for the computer-controlled dealer
-    for direction in face_directions:
-        players_hand.draw_card(live_deck)
-        dealers_hand.draw_card(
-            live_deck, direction
-        )  # Loop ensures dealer's first card is face-up, second face-down
+    players_hand = Hand()  # Initialises a hand object for the player
+    dealers_hand = DealerHand()  # Initialises a hand object for the computer-controlled dealer
+
+    players_hand.draw_card(live_deck)
+    dealers_hand.draw_card(live_deck)
+    players_hand.draw_card(live_deck)
+    dealers_hand.draw_card(live_deck)
+
     dealers_hand.print_hand()  # Prints the dealer's hand
     players_hand.print_hand()  # Prints the player's hand
 

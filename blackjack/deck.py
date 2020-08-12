@@ -24,7 +24,7 @@ class Deck:
         Parameters
         ----------
         input_deck_count : int
-            The number of 52-card sets to be shuffled into a deck object on initialisation
+            The number of 52-card sets to be shuffled into a deck object on initialisation.
         """
         self._live_deck = (
             []
@@ -114,10 +114,17 @@ class Deck:
 
     def shuffle_deck(self):
         """Applies a new random ordering to the card objects contained within a deck object."""
-        return shuffle(self._live_deck)
+        shuffle(self._live_deck)
 
     def deal_card(self):
-        """Returns and removes the top card from the deck object's '_live_deck'. Called by hand objects."""
+        """
+        Returns and removes the top card from the deck object's '_live_deck'. Called by hand objects.
+
+        Returns
+        -------
+        blackjack.card.Card
+            The top card from the deck object is returned: it has been removed from the deck.
+        """
         return self._live_deck.pop(0)
 
     def print_deck(self):
@@ -135,6 +142,6 @@ class Deck:
         input_deck_count : int
             The number of 52-card sets to be shuffled into a deck object on initialisation
         """
-        assert (isinstance(input_deck_count, int)) & (
+        assert (isinstance(input_deck_count, int)) and (
             input_deck_count > 0
         ), "'input_deck_count' must be a positive integer!"

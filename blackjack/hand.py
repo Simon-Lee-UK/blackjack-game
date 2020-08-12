@@ -60,7 +60,7 @@ class Hand:
 
         Returns
         -------
-        hand_value_list : list
+        hand_value_list : list of int / str
             A list containing all possible values the hand's combination of cards can take with no duplicates. For a
             hand with all cards face-up: returns a list of integers. For hands with any cards face-down: returns a
             list of strings.

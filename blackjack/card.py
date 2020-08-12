@@ -43,8 +43,28 @@ class Card:
         )  # Accounts for zero-indexing: _deck_num will be an integer >= 1
         self._face_up = True  # This boolean stores whether the card is face up (True) or face down (False)
 
+    def __repr__(self):
+        """
+        Entering the reference for a card object in the terminal triggers this method, printing all card details.
+
+        Returns
+        -------
+            Output of 'print_card_details' method : str
+                Prints verbose attributes of a Card object, e.g.: 'Ace of diamonds (Value = 1 or 11, Deck# = 3)'.
+        """
+        return self.print_card_details()
+
     def print_card_details(self):
-        """Prints verbose attributes of a Card object, e.g.: 'Ace of diamonds (Value = 1 or 11, Deck# = 3)'."""
+        """
+        Prints verbose attributes of a Card object, e.g.: 'Ace of diamonds (Value = 1 or 11, Deck# = 3)'.
+
+        Returns
+        -------
+        empty_string : str
+            An empty string, returned so that the 'print_card_details' method can be called by the Card class' __repr__
+            method which must return a string-like object.
+        """
+        empty_string = ""
         if self._rank == "Ace":
             print(
                 f"{self._rank} of {self._suit.lower()} "
@@ -59,20 +79,40 @@ class Card:
                 f"(Value = {str(self._value)}, "
                 f"Deck# = {str(self._deck_num)})"
             )
+        return empty_string
 
     def flip_card(self):
-        """'Flips' the card object by setting '_face_up' to the opposite boolean value."""
+        """'Flips' the card object by setting the '_face_up' attribute to the opposite boolean value."""
         self._face_up = not self._face_up
 
     def card_value(self):
-        """If card is currently face-up, returns card value; if face-down returns a consistent string."""
+        """
+        If card is currently face-up, returns card value; if face-down returns a consistent string.
+
+        Returns
+        -------
+        int / str
+            If card is face-up: returns card value as integer; otherwise returns 'face-down string' = '*-*'.
+        """
         if self._face_up:
             return self._value
         else:
             return "*-*"
 
     def is_ace(self):
-        """Returns True if the card is an Ace, returns False otherwise."""
+        """
+        Face-up cards: return True if card is an Ace and False if it isn't; face-down cards raise a TypeError.
+
+        Returns
+        -------
+        bool
+            True for face-up aces; false for face-up cards that are not an ace.
+
+        Raises
+        ------
+        TypeError
+            Raised when the card is face-down.
+        """
         if self._rank == "Ace" and self.is_face_up():
             return True
         elif self._rank != "Ace" and self.is_face_up():
@@ -81,11 +121,25 @@ class Card:
             raise TypeError("Cannot resolve 'is_ace': card is face down.")
 
     def is_face_up(self):
-        """Returns the current card orientation as a boolean (face-up = True, face-down = False)."""
+        """
+        Returns the current card orientation as a boolean (face-up = True, face-down = False).
+
+        Returns
+        -------
+        bool
+            True when card is face-up; False when card is face-down.
+        """
         return self._face_up
 
     def short_card_details(self):
-        """If card is currently face-up, returns shorthand card details; if face-down returns a consistent string."""
+        """
+        If card is currently face-up, returns shorthand card details; if face-down returns a consistent string.
+
+        Returns
+        -------
+        str
+            If card is face-up: returns shorthand card details; otherwise returns 'face-down string' = '*-*'.
+        """
         if self._face_up:
             return f"{self._rank_short}-{self._suit[0]}"
         else:

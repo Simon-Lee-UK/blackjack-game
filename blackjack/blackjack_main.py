@@ -64,7 +64,7 @@ def single_round(live_deck):
         "Dealer"
     )  # Initialises a hand object for the computer-controlled dealer
     for direction in face_directions:
-        players_hand.draw_card(live_deck, "up")
+        players_hand.draw_card(live_deck)
         dealers_hand.draw_card(
             live_deck, direction
         )  # Loop ensures dealer's first card is face-up, second face-down

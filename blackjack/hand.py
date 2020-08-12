@@ -100,7 +100,7 @@ class Hand:
 
         return hand_value_list
 
-    def draw_card(self, deck_obj, face_dir):
+    def draw_card(self, deck_obj, face_dir="up"):
         """
         Removes one card from the input deck and adds this card to the hand with orientation defined by 'face_dir'.
 
@@ -117,10 +117,12 @@ class Hand:
         deck_obj : blackjack.deck.Deck
             The game's 'live' deck object - a card will be removed from this deck and added to the current hand object.
         face_dir : str
-            Determines whether the card is added to the hand face-up or face-down; takes value 'up' or 'down'.
+            Defines whether card is added to the hand face-up or face-down. By default, the card will be added
+            face-up with face_dir = 'up'. Any value of face_dir not spelling 'up' (case-insensitive) will add the card
+            face-down.
         """
         drawn_card = deck_obj.deal_card()
-        if face_dir == "down":
+        if face_dir.lower() != "up":
             drawn_card.flip_card()
         self._live_hand.append(drawn_card)
 

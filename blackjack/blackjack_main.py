@@ -66,6 +66,38 @@ def single_round(live_deck):
     dealers_hand.print_hand()  # Prints the dealer's hand
     players_hand.print_hand()  # Prints the player's hand
 
+    while players_hand.is_active():
+        single_player_action(live_deck, players_hand)
+        players_hand.print_hand()
+
+    print("Player's go is over!")
+
+
+def single_player_action(live_deck, live_player_hand):
+    """
+    Processes one action from the player, currently: a choice between 'hit' (take a card) or 'stand' (no more cards).
+
+    Player enters their action choice at the command line. A valid entry of 'h' = hit or 's' = stand is required before
+    the function triggers the associated action against the player's hand.
+
+    Parameters
+    ----------
+    live_deck : blackjack.deck.Deck
+        The game's 'live' deck object. If player action requires a card to be dealt, it will be dealt from this deck.
+    live_player_hand : blackjack.hand.Hand
+        The player's 'live' hand object. The output action (hit/stand) will be applied to this hand.
+    """
+    while True:
+        action_key = input("\nHit [h] or Stand [s]: ")
+        if action_key.lower() == "h" or action_key.lower() == "s":
+            break
+        print("Invalid action: please enter 'h' to hit or 's' to stand...")
+
+    if action_key.lower() == "h":
+        live_player_hand.draw_card(live_deck)
+    else:
+        live_player_hand.stand()
+
 
 if __name__ == "__main__":
     main()

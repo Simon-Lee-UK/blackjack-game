@@ -25,6 +25,7 @@ class Hand:
         self._live_hand = (
             []
         )  # A list of card objects making up the hand; initialised as an empty list
+        self._active = True  # The active status communicates whether the hand is still active in the current round
         self._holder_role = holder_role
 
     def __iter__(self):
@@ -100,6 +101,21 @@ class Hand:
             ]
 
         return hand_value_list
+
+    def is_active(self):
+        """
+        As a boolean, returns the active status of the hand in the current round (bust/stand = False; otherwise = True).
+
+        A hand is regarded as active in a round while cards can still be added to the hand. Once a player decides to
+        'stand' at their hand's current value, or if they go bust (> 21), the hands '_active' attribute is set to False
+        signalling that no further actions are required by the player holding the hand in the current round.
+
+        Returns
+        -------
+        bool
+            True when hand can still receive cards in the current round; otherwise False.
+        """
+        return self._active
 
     def draw_card(self, deck_obj, face_dir="up"):
         """

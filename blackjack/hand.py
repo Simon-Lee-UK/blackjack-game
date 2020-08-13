@@ -198,13 +198,13 @@ class DealerHand(Hand):
         face_dir : None / str
             Defines whether card is added to the hand face-up or face-down. By default, 'face_dir' is None when
             method is called against a dealer's hand object. Where None, the orientation of the card is determined
-            by the number of cards currently in the dealer's hand. If the dealer currently has zero cards in their
+            by the number of cards currently in the dealer's hand. If the dealer currently has a single card in their
             hand, the card is dealt face-down; otherwise face-up. If the method is called with face_dir specified, it
             behaves identically to the equivalent method on the base Hand class.
         """
         if face_dir:
             super().draw_card(deck_obj, face_dir)
-        elif len(self) == 0:
+        elif len(self) == 1:
             face_dir = "down"
             super().draw_card(deck_obj, face_dir)
         else:

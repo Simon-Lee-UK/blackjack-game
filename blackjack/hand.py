@@ -20,7 +20,7 @@ class Hand:
         ----------
         holder_role : str
             Defines the owner, or 'holder', of the hand object being created: either 'Player' or 'Dealer'.
-            Defaults to 'Player'.
+            Defaults to 'Player' for this base hand class.
         """
         self._live_hand = (
             []
@@ -81,7 +81,7 @@ class Hand:
                     ace_values = card.card_value()
                 else:
                     non_ace_sum += card.card_value()
-            except TypeError:
+            except AssertionError:
                 face_down_count += 1
 
         # This if-else block defines a list of possible values associated with all face-up cards in the hand
@@ -134,7 +134,13 @@ class Hand:
             Defines whether card is added to the hand face-up or face-down. By default, the card will be added
             face-up with face_dir = 'up'. Any value of face_dir not spelling 'up' (case-insensitive) will add the card
             face-down.
+
+        Raises
+        ------
+        AssertionError
+            Raised when the hand is inactive (can't accept further cards).
         """
+        assert self.is_active(), "Cannot draw a card to this hand: it is marked as inactive in the current round."
         drawn_card = deck_obj.deal_card()
         if face_dir.lower() != "up":
             drawn_card.flip_card()

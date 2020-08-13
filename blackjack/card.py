@@ -112,15 +112,14 @@ class Card:
 
         Raises
         ------
-        TypeError
+        AssertionError
             Raised when the card is face-down.
         """
-        if self._rank == "Ace" and self.is_face_up():
+        assert self.is_face_up(), "Cannot resolve 'is_ace': card is face down."
+        if self._rank == "Ace":
             return True
-        elif self._rank != "Ace" and self.is_face_up():
-            return False
         else:
-            raise TypeError("Cannot resolve 'is_ace': card is face down.")
+            return False
 
     def is_face_up(self):
         """

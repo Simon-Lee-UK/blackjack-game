@@ -117,6 +117,10 @@ class Hand:
         """
         return self._active
 
+    def stand(self):
+        """Updates hand status to inactive: triggered when player chooses to draw no more cards in the current round."""
+        self._active = False
+
     def draw_card(self, deck_obj, face_dir="up"):
         """
         Removes one card from the input deck and adds this card to the hand with orientation defined by 'face_dir'.

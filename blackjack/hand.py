@@ -1,6 +1,7 @@
 """
 This module exports the 'Hand' class, 'PlayerHand' and 'DealerHand' subclasses, and related methods.
 """
+import time
 
 
 class Hand:
@@ -281,3 +282,32 @@ class DealerHand(Hand):
         else:
             face_dir = "up"
             super().draw_card(deck_obj, face_dir)
+
+    def resolve_hand(self, deck_obj):
+        """
+        Docstring
+        """
+        dealer_target = 17
+        draw_delay = 1
+        self._reveal_hand()
+        time.sleep(draw_delay)
+
+        while True:
+            if self.is_bust():
+                print("Dealer has gone bust!")
+                break
+            elif self.best_hand_value() < dealer_target:
+                self.draw_card(deck_obj)
+                self.print_hand()
+                time.sleep(draw_delay)
+            else:
+                self.stand()
+                print(f"Dealer's' score = {self.best_hand_value()}")
+                break
+
+    def _reveal_hand(self):
+        """Turns all cards in the hand face-up and prints hand details to the screen."""
+        for card in self:
+            if not card.is_face_up():
+                card.flip_card()
+        self.print_hand()

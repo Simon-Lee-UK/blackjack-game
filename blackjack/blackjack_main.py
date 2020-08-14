@@ -16,6 +16,7 @@ number_of_decks : int
 
 from blackjack import Deck
 from blackjack import Hand, DealerHand
+import time
 
 number_of_decks = 1
 
@@ -35,9 +36,14 @@ def main():
     """
     first_deck = Deck(number_of_decks)
     first_deck.print_deck()  # This prints details of the cards in the deck - currently nice to check it's working OK
-    single_round(
-        first_deck
-    )  # This starts the first round of the game, providing the above deck object as input arg
+    while True:
+        time.sleep(1.5)
+        print("\n---------"
+              "\nNEW ROUND"
+              "\n---------")
+        single_round(
+            first_deck
+        )  # This starts the first round of the game, providing the above deck object as input arg
 
 
 def single_round(live_deck):
@@ -60,6 +66,7 @@ def single_round(live_deck):
         DealerHand()
     )  # Initialises a hand object for the computer-controlled dealer
 
+    # Draws two cards each for the player and the dealer
     players_hand.draw_card(live_deck)
     dealers_hand.draw_card(live_deck)
     players_hand.draw_card(live_deck)
@@ -72,7 +79,15 @@ def single_round(live_deck):
         single_player_action(live_deck, players_hand)
         players_hand.print_hand()
 
-    print("Player's go is over!")
+    if players_hand.is_bust():
+        print("You've gone bust!")
+        # Player loses money; exit this round
+    else:
+        print(f"Your score = {players_hand.best_hand_value()}")  # remove?
+        dealers_hand.resolve_hand(live_deck)
+        if dealers_hand.is_bust():
+            # Player wins money; exit this round
+            pass
 
 
 def single_player_action(live_deck, live_player_hand):

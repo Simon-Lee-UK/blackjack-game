@@ -19,13 +19,14 @@ class Hand:
         Parameters
         ----------
         holder_role : str
-            Defines the owner, or 'holder', of the hand object being created: either 'Player' or 'Dealer'.
+            Defines the owner, or 'holder', of the hand object bseing created: either 'Player' or 'Dealer'.
             Defaults to 'Player' for this base hand class.
         """
         self._live_hand = (
             []
         )  # A list of card objects making up the hand; initialised as an empty list
         self._active = True  # The active status communicates whether the hand is still active in the current round
+        self._bust = False  # The bust status communicates whether the hand is bust (value > 21) in the current round
         self._holder_role = holder_role
 
     def __iter__(self):
@@ -116,6 +117,17 @@ class Hand:
             True when hand can still receive cards in the current round; otherwise False.
         """
         return self._active
+
+    def is_bust(self):
+        """
+        As a boolean, returns 'bust' status of hand in the current round (value > 21: returns True; otherwise False).
+
+        Returns
+        -------
+        bool
+            True when lowest possible hand value exceeds 21; otherwise False.
+        """
+        return self._bust
 
     def stand(self):
         """Updates hand status to inactive: triggered when player chooses to draw no more cards in the current round."""

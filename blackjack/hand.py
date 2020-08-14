@@ -56,10 +56,14 @@ class Hand:
         """Allows len() to be used on hand objects, returning the number of cards in the hand as the object 'length'."""
         return len(self._live_hand)
 
-    @property
-    def hand_value(self):
+    def hand_value(self, bypass_face_down=False):
         """
         Returns the total value(s) of the target hand by summing the values of all constituent card objects.
+
+        Parameters
+        ----------
+        bypass_face_down : bool
+            Tells method whether to include face-down cards in calculating the value(s) of the hand. Defaults to False.
 
         Returns
         -------
@@ -75,13 +79,13 @@ class Hand:
 
         # Loop: counts number of face-down cards in the hand; counts face-up aces; sums face-up cards that aren't an ace
         for card in self:
-            # Try statement catches TypeErrors thrown when 'is_ace' method encounters a face-down card
+            # Try statement catches AssertionErrors thrown when 'is_ace' method encounters a face-down card
             try:
-                if card.is_ace():
+                if card.is_ace(bypass_face_down):
                     ace_count += 1
-                    ace_values = card.card_value()
+                    ace_values = card.card_value(bypass_face_down)
                 else:
-                    non_ace_sum += card.card_value()
+                    non_ace_sum += card.card_value(bypass_face_down)
             except AssertionError:
                 face_down_count += 1
 
@@ -102,6 +106,12 @@ class Hand:
             ]
 
         return hand_value_list
+
+    def best_hand_value(self):
+        """
+        Docstring
+        """
+        pass
 
     def is_active(self):
         """
@@ -176,7 +186,7 @@ class Hand:
         print(f"\n{self._holder_role}'s hand")
         for idx, single_card in enumerate(self):
             print(f"Card {idx}: {single_card.short_card_details()}")
-        print(f"Value: {self.hand_value}")
+        print(f"Value: {self.hand_value()}")
         return empty_string
 
     @staticmethod

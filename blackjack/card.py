@@ -87,35 +87,49 @@ class Card:
         """'Flips' the card object by setting the '_face_up' attribute to the opposite boolean value."""
         self._face_up = not self._face_up
 
-    def card_value(self):
+    def card_value(self, bypass_face_down=False):
         """
-        If card is currently face-up, returns card value; if face-down returns a consistent string.
+        If card is face-up (or secrecy is bypassed), returns card value; otherwise returns a consistent string.
+
+        Parameters
+        ----------
+        bypass_face_down : bool
+            Tells method whether to bypass face-down privacy, revealing value of face-down cards. Defaults to False.
 
         Returns
         -------
         int / str
-            If card is face-up: returns card value as integer; otherwise returns 'face-down string' = '*-*'.
+            If card is face-up or face-down privacy ignored: returns card value as integer; otherwise returns consistent
+            'face-down string' = '*-*'.
         """
-        if self._face_up:
+        if self._face_up or bypass_face_down:
             return self._value
         else:
             return "*-*"
 
-    def is_ace(self):
+    def is_ace(self, bypass_face_down=False):
         """
         Face-up cards: return True if card is an Ace and False if it isn't; face-down cards raise a TypeError.
+
+        Parameters
+        ----------
+        bypass_face_down : bool
+            Tells method whether to bypass face-down privacy, revealing if face-down cards are aces. Defaults to False.
 
         Returns
         -------
         bool
-            True for face-up aces; false for face-up cards that are not an ace.
+            True for aces; false for cards that are not an ace. Face-down cards raise error unless 'bypass_face_down'
+            has been passed as True.
 
         Raises
         ------
         AssertionError
-            Raised when the card is face-down.
+            Raised when the card is face-down and face-down privacy has not been ignored.
         """
-        assert self.is_face_up(), "Cannot resolve 'is_ace': card is face down."
+        if not bypass_face_down:
+            assert self.is_face_up(), "Cannot resolve 'is_ace': card is face down."
+
         if self._rank == "Ace":
             return True
         else:

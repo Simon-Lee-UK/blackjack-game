@@ -184,6 +184,7 @@ class Hand:
         if face_dir.lower() != "up":
             drawn_card.flip_card()
         self._live_hand.append(drawn_card)
+        self._verify_hand_status()
 
     def print_hand(self):
         """
@@ -201,6 +202,12 @@ class Hand:
             print(f"Card {idx}: {single_card.short_card_details()}")
         print(f"Value: {self.hand_value()}")
         return empty_string
+
+    def _verify_hand_status(self):
+        """Checks whether the hand is bust (only has values > 21). If bust, updates hand status to bust and inactive."""
+        if self.best_hand_value() is None:
+            self._bust = True
+            self._active = False
 
     @staticmethod
     def _calculate_ace_values(ace_count, ace_values):

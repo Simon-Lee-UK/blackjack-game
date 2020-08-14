@@ -56,7 +56,9 @@ def single_round(live_deck):
 
     """
     players_hand = Hand()  # Initialises a hand object for the player
-    dealers_hand = DealerHand()  # Initialises a hand object for the computer-controlled dealer
+    dealers_hand = (
+        DealerHand()
+    )  # Initialises a hand object for the computer-controlled dealer
 
     players_hand.draw_card(live_deck)
     dealers_hand.draw_card(live_deck)

@@ -163,7 +163,8 @@ class Hand:
         Calls the 'deal_card' method of an input deck object, the deck returns a single card object and deletes this
         card from the deck. If the 'face_dir' input argument requires the hand to be dealt face-down, the freshly
         drawn card (face-up by default) calls its 'flip_card' method to ensure the card is correctly face-down before it
-        it is appended to the hand array.
+        it is appended to the hand array. Finally, the method calls '_validate_hand_status' that checks whether the hand
+        is now bust and updates all hand statuses accordingly.
 
         Parameters
         ----------
@@ -179,7 +180,9 @@ class Hand:
         AssertionError
             Raised when the hand is inactive (can't accept further cards).
         """
-        assert self.is_active(), "Cannot draw a card to this hand: it is marked as inactive in the current round."
+        assert (
+            self.is_active()
+        ), "Cannot draw a card to this hand: it is marked as inactive in the current round."
         drawn_card = deck_obj.deal_card()
         if face_dir.lower() != "up":
             drawn_card.flip_card()

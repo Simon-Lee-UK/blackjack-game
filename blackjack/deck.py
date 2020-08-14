@@ -127,13 +127,7 @@ class Deck:
                     self._rank_names, self._rank_short, self._rank_values
                 ):
                     self._live_deck.append(
-                        Card(
-                            suit,
-                            rank,
-                            rank_short,
-                            rank_value,
-                            deck_number,
-                        )
+                        Card(suit, rank, rank_short, rank_value, deck_number,)
                     )
         self.shuffle_deck()  # Calls the 'shuffle_deck' method against the current Deck object
 

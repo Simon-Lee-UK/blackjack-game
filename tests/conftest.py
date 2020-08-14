@@ -23,6 +23,7 @@ def queen_spades_fixture():
 def three_clubs_fixture():
     return Card("Clubs", "Three", "3", 3, 0)
 
+
 @pytest.fixture
 def facedown_ace_fixture():
     facedown_ace = Card("Hearts", "Ace", "A", (1, 11), 0)
@@ -68,7 +69,9 @@ def hand_4ace_fixture(ace_spades_fixture, ace_diamonds_fixture):
 @pytest.fixture
 def hand_bust_fixture(three_clubs_fixture, queen_spades_fixture):
     hand_bust = Hand("Player")
-    hand_bust._live_hand.extend([three_clubs_fixture, queen_spades_fixture, queen_spades_fixture])
+    hand_bust._live_hand.extend(
+        [three_clubs_fixture, queen_spades_fixture, queen_spades_fixture]
+    )
     return hand_bust
 
 

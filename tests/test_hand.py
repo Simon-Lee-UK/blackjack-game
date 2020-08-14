@@ -32,3 +32,11 @@ def test_iter_method(hand_4ace_fixture):
 
 def test_len_method(hand_4ace_fixture):
     assert len(hand_4ace_fixture) == 4
+
+
+def test_best_hand_value_multiple_values(hand_4ace_fixture):
+    assert hand_4ace_fixture.best_hand_value() == 14
+
+
+def test_best_hand_value_bust(hand_bust_fixture):
+    assert hand_bust_fixture.best_hand_value() is None

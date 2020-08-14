@@ -66,6 +66,13 @@ def hand_4ace_fixture(ace_spades_fixture, ace_diamonds_fixture):
 
 
 @pytest.fixture
+def hand_bust_fixture(three_clubs_fixture, queen_spades_fixture):
+    hand_bust = Hand("Player")
+    hand_bust._live_hand.extend([three_clubs_fixture, queen_spades_fixture, queen_spades_fixture])
+    return hand_bust
+
+
+@pytest.fixture
 def hand_facedown_fixture(three_clubs_fixture, facedown_ace_fixture):
     hand_facedown = Hand("Dealer")
     hand_facedown._live_hand.extend([three_clubs_fixture, facedown_ace_fixture])

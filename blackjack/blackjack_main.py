@@ -14,8 +14,7 @@ number_of_decks : int
     Casinos normally use 6 decks at a time.
 """
 
-from blackjack import Deck
-from blackjack import Hand, DealerHand
+from blackjack import Player, Deck, Hand, DealerHand
 import time
 
 number_of_decks = 1

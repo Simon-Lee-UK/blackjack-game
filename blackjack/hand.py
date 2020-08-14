@@ -208,10 +208,13 @@ class Hand:
         return empty_string
 
     def _verify_hand_status(self):
-        """Checks whether the hand is bust (only has values > 21). If bust, updates hand status to bust and inactive."""
+        """Checks whether the hand is bust or has value equal to 21. Updates hand status accordingly."""
+        twenty_one = 21
         if self.best_hand_value() is None:
             self._bust = True
-            self._active = False
+            self.stand()
+        elif self.best_hand_value() == twenty_one:
+            self.stand()
 
     @staticmethod
     def _calculate_ace_values(ace_count, ace_values):

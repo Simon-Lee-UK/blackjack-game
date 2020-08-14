@@ -285,7 +285,16 @@ class DealerHand(Hand):
 
     def resolve_hand(self, deck_obj):
         """
-        Docstring
+        This method automatically resolves the dealer's hand: drawing cards until the hand value exceeds seventeen.
+
+        Method initially checks the dealer's hand value: if its best value > 17, the dealer stands. If < 17, the hand
+        draws cards until its value exceeds 17 or goes bust. The dealer's final hand score is printed to the screen
+        or the player is informed that the dealer has gone bust.
+
+        Parameters
+        ----------
+        deck_obj : blackjack.deck.Deck
+            The game's 'live' deck object - cards may be removed from this deck and added to the dealer's hand object.
         """
         dealer_target = 17
         draw_delay = 1

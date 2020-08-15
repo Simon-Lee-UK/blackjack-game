@@ -82,6 +82,11 @@ def single_round(live_deck, player_one):
     dealers_hand.print_hand()  # Prints the dealer's hand
     players_hand.print_hand()  # Prints the player's hand
 
+    # Detects and settles any naturals drawn by the dealer or player; if round is fully resolved, exits 'single_round'
+    round_complete = dealers_hand.settle_naturals(players_hand, player_one)
+    if round_complete:
+        return
+
     # While loop prompts the user for actions until they 'stand' or go bust
     while players_hand.is_active():
         single_player_action(live_deck, players_hand)

@@ -341,15 +341,52 @@ class DealerHand(Hand):
 
     def settle_naturals(self, player_hand, player_obj):
         """
-        Method to settle bets where one/more participants draws a natural (hand value = 21 with two cards)
+        Method detects naturals and settles any bets as necessary; returns True if round is concluded, otherwise False.
+
+        A hand is a 'natural' if it contains two cards with a total value of 21. Players and dealers can get naturals
+        upon drawing their first two cards at the start of a round. If the dealer gets a natural, the round is over and
+        they collect the bet of any player who did not also get a natural. If a player gets a natural and the dealer did
+        not, they are immediately paid 1.5x the value of their bet.
+
+        Parameters
+        ----------
+        player_hand : blackjack.hand.PlayerHand
+            A player's 'live' hand object. The 'natural' status of this hand is read and compared to the status of the
+            dealer's hand. Where a payout is required, the amount bet against the hand is also read into 'bet_amount'.
+        player_obj : blackjack.player.Player
+            The player object that owns the input 'player_hand'. Where a payout is required, this player's balance
+            will be updated accordingly.
+
+        Returns
+        -------
+        round_complete : bool
+            Returns True if no further actions are possible in the current round, following the settling of naturals;
+            otherwise False (and the round continues).
         """
-        # Naturals: 21 with two cards (payout of 1.5x bet)
-        # Dealer natural:
-        pass
+        if not any((self.is_natural(), player_hand.is_natural())):
+            round_complete = False
+            return round_complete
+        else:
+            round_complete = True
+            bet_amount = player_hand.get_bet()
+
+        if self.is_natural() and not player_hand.is_natural():
+            # No action, round ends and bet is collected (discarded) automatically with player's hand
+            pass
+        elif not self.is_natural() and player_hand.is_natural():
+            # Player wins 1.5x their original bet; multiplier is 2.5x so bet amount is also deposited back into balance
+            payout_multiplier = 2.5
+            player_obj.update_balance(bet_amount * payout_multiplier)
+        elif all((self.is_natural(), player_hand.is_natural())):
+            # Stand-off between player and dealer: player's bet is deposited back into balance
+            payout_multiplier = 1
+            player_obj.update_balance(bet_amount * payout_multiplier)
+
+        return round_complete
 
     def settle_bet(self, player_hand, player_obj):
         """
-        Method to settle bets (where round was not fully resolved at 'naturals' stage
+        Method to settle bets (where round was not fully resolved at 'naturals' stage).
         """
         # Optionally payout
         pass
@@ -364,7 +401,9 @@ class PlayerHand(Hand):
 
     def __init__(self):
         """Calls the __init__ method of the base Hand class, initialising an empty hand object for the player."""
-        self._bet = float(0)  # An attribute holding the amount bet by a player against this hand: initially zero
+        self._bet = float(
+            0
+        )  # An attribute holding the amount bet by a player against this hand: initially zero
         super().__init__()
 
     def add_bet(self, amount):
@@ -378,3 +417,7 @@ class PlayerHand(Hand):
             as positive and has already been removed from the player's balance.
         """
         self._bet += amount
+
+    def get_bet(self):
+        """Returns the amount bet against this player's hand as a float."""
+        return self._bet

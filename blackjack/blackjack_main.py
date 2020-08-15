@@ -38,7 +38,7 @@ def main():
     """
     player_one = Player()
     game_deck = Deck(number_of_decks)
-    while True:
+    while player_one.get_balance() > 0:
         time.sleep(1.5)
         if len(game_deck) < deck_length_limit:
             game_deck.new_deck()
@@ -55,6 +55,13 @@ def main():
         single_round(
             game_deck, player_one
         )  # This starts the first round of the game, providing the above deck and player objects as input args
+
+    print(
+        f"\n\n---------"
+        f"\nGAME OVER"
+        f"\n---------"
+        f"\nSorry {player_one.get_name()}, looks like you're out of money...\n"
+    )
 
 
 def single_round(live_deck, player_one):

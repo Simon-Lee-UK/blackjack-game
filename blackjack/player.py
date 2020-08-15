@@ -17,6 +17,7 @@ class Player:
         self._name = "None Entered"  # The player's name: requiring user keyboard input via method called below
         self.set_name()
         self._balance = 500.00  # The starting balance for any player
+        self._precision = 2  # The precision (after decimal place) to which monetary amounts are rounded
         self._currency = "£"  # The currency associated with the player object's balance
 
     def __repr__(self):
@@ -57,6 +58,29 @@ class Player:
             The value added (if +ve) or removed (if -ve) from the player's balance.
         """
         self._balance += difference
+
+    def place_bet(self, player_hand):
+        """
+        Processes a bet made by a player: user enters bet amount; amount is verified; if OK, bet is added to input hand.
+
+        Parameters
+        ----------
+        player_hand : blackjack.hand.Hand
+            The player's 'live' hand object. The user-entered bet will be linked to this hand.
+        """
+        invalid_bet_message = "Invalid bet: must be number between 0 and balance!"
+        while True:
+            try:
+                self.print_player_details()
+                amount = round(float(input(f"\nPlace your bet: ")), self._precision)
+                if 0 < amount < self.get_balance():
+                    break
+                print(invalid_bet_message)
+            except ValueError:
+                print(invalid_bet_message)
+
+        self._balance -= amount
+        player_hand.add_bet(amount)
 
     def print_player_details(self):
         """

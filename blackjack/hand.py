@@ -29,6 +29,7 @@ class Hand:
         )  # A list of card objects making up the hand; initialised as an empty list
         self._active = True  # The active status communicates whether the hand is still active in the current round
         self._bust = False  # The bust status communicates whether the hand is bust (value > 21) in the current round
+        self._natural = False  # The natural status communicates whether the hand is a natural (value = 21 with 2 cards)
         self._holder_role = holder_role
 
     def __iter__(self):
@@ -153,6 +154,17 @@ class Hand:
         """
         return self._bust
 
+    def is_natural(self):
+        """
+        As a boolean, returns 'natural' status of hand (2 cards in hand and value = 21: returns True; otherwise False).
+
+        Returns
+        -------
+        bool
+            True when card contains two cards with combined value of 21; otherwise False.
+        """
+        return self._natural
+
     def stand(self):
         """Updates hand status to inactive: triggered when player chooses to draw no more cards in the current round."""
         self._active = False
@@ -208,13 +220,16 @@ class Hand:
         return empty_string
 
     def _verify_hand_status(self):
-        """Checks whether the hand is bust or has value equal to 21. Updates hand status accordingly."""
+        """Checks whether the hand is bust, has value equal to 21 or is a natural. Updates hand status accordingly."""
         twenty_one = 21
+        natural_length = 2
         if self.best_hand_value() is None:
             self._bust = True
             self.stand()
         elif self.best_hand_value() == twenty_one:
             self.stand()
+            if len(self) == natural_length:
+                self._natural = True
 
     @staticmethod
     def _calculate_ace_values(ace_count, ace_values):

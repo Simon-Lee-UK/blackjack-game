@@ -324,6 +324,21 @@ class DealerHand(Hand):
                 card.flip_card()
         self.print_hand()
 
+    def settle_naturals(self, player_hand, player_obj):
+        """
+        Method to settle bets where one/more participants draws a natural (hand value = 21 with two cards)
+        """
+        # Naturals: 21 with two cards (payout of 1.5x bet)
+        # Dealer natural:
+        pass
+
+    def settle_bet(self, player_hand, player_obj):
+        """
+        Method to settle bets (where round was not fully resolved at 'naturals' stage
+        """
+        # Optionally payout
+        pass
+
 
 class PlayerHand(Hand):
     """

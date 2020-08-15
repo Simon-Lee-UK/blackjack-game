@@ -68,12 +68,12 @@ class Player:
         player_hand : blackjack.hand.PlayerHand
             The player's 'live' hand object. The user-entered bet will be linked to this hand.
         """
-        invalid_bet_message = "Invalid bet: must be number between 0 and balance!"
+        invalid_bet_message = f"Invalid bet: must be number between 0 and {self._currency}{self._balance:.2f}!"
+        self.print_player_details()
         while True:
             try:
-                self.print_player_details()
                 amount = round(float(input(f"\nPlace your bet: ")), self._precision)
-                if 0 < amount < self.get_balance():
+                if 0 < amount <= self.get_balance():
                     break
                 print(invalid_bet_message)
             except ValueError:
@@ -93,5 +93,5 @@ class Player:
             __repr__ method which must return a string-like object.
         """
         empty_string = ""
-        print(f"{self._name}: balance = {self._currency}{self._balance}")
+        print(f"{self._name}: balance = {self._currency}{self._balance:.2f}")
         return empty_string

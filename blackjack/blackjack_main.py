@@ -14,7 +14,7 @@ number_of_decks : int
     Casinos normally use 6 decks at a time.
 """
 
-from blackjack import Player, Deck, Hand, DealerHand, PlayerHand
+from blackjack import Player, Deck, DealerHand, PlayerHand
 import time
 
 number_of_decks = 1
@@ -90,13 +90,11 @@ def single_round(live_deck, player_one):
     # If-Else blocks resolve the round by comparing player and dealer hand values and paying-out to players if required
     if players_hand.is_bust():
         print("You've gone bust!")
-        # Player loses money; exit this round
+        # Player loses money (discarded with their hand); exit this round without resolving dealers hand
     else:
         print(f"Your score = {players_hand.best_hand_value()}")  # remove?
         dealers_hand.resolve_hand(live_deck)
-        if dealers_hand.is_bust():
-            # Player wins money; exit this round
-            pass
+        dealers_hand.settle_bet(players_hand, player_one)
 
 
 def single_player_action(live_deck, live_player_hand):

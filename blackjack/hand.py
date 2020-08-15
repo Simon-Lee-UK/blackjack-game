@@ -118,13 +118,12 @@ class Hand:
         best_value : int or None
             The best possible total value of the hand's constituent cards. If no hand value <= 21, 'best_value' = None.
         """
-        best_value = None
         max_best_value = 21
         all_hand_values = self.hand_value(bypass_face_down=True)
         try:
             best_value = max([val for val in all_hand_values if val <= max_best_value])
         except ValueError:
-            pass
+            best_value = None
 
         return best_value
 

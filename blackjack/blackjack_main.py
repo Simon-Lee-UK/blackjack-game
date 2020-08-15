@@ -33,6 +33,7 @@ def main():
     --- Current idea for hands is to have a small list of objects that is appended when dealt to and cleared out when
     the hand is discarded. ---
     """
+    player_one = Player()
     first_deck = Deck(number_of_decks)
     first_deck.print_deck()  # This prints details of the cards in the deck - currently nice to check it's working OK
     while True:
@@ -41,29 +42,35 @@ def main():
               "\nNEW ROUND"
               "\n---------")
         single_round(
-            first_deck
-        )  # This starts the first round of the game, providing the above deck object as input arg
+            first_deck, player_one
+        )  # This starts the first round of the game, providing the above deck and player objects as input args
 
 
-def single_round(live_deck):
+def single_round(live_deck, player_one):
     """
     Steps through a single round of blackjack: accepting user inputs as actions and manipulating objects as required.
 
-    --- Currently, not a full round. Just deals two cards to the player and two cards to the dealer then prints both
-    hands. As these hands are defined within the 'single_round' function (and are not returned at the end), they only
-    exist for a single round. For now, think this is fine. When writing info to StatJack, will need to ensure hand info
-    is written from this function. ---
+    Defining a new hand object for each participant every round removes the need tidy-up hand statuses; clear out
+    cards, etc. By reassigning the same reference to the fresh hands, we rely on Python to garbage collect old
+    inaccessible hand objects.
 
     Parameters
     ----------
     live_deck : blackjack.deck.Deck
         The game's 'live' deck object. All cards for this single round will be dealt from this deck.
-
+    player_one : blackjack.player.Player
+        The player competing against the dealer in this round. The PlayerHand object defined below will belong to this
+        player who will bet against it from their game balance. In future, this argument may be expanded to import a
+        collection of players to the round.
     """
-    players_hand = Hand()  # Initialises a hand object for the player
+    # Initialise hands
+    players_hand = PlayerHand()  # Initialises a hand object for the player
     dealers_hand = (
         DealerHand()
     )  # Initialises a hand object for the computer-controlled dealer
+
+    # Bets are placed
+    player_one.place_bet(players_hand)
 
     # Draws two cards each for the player and the dealer
     players_hand.draw_card(live_deck)
@@ -71,13 +78,16 @@ def single_round(live_deck):
     players_hand.draw_card(live_deck)
     dealers_hand.draw_card(live_deck)
 
+    # Hands are printed before play commences
     dealers_hand.print_hand()  # Prints the dealer's hand
     players_hand.print_hand()  # Prints the player's hand
 
+    # While loop prompts the user for actions until they 'stand' or go bust
     while players_hand.is_active():
         single_player_action(live_deck, players_hand)
         players_hand.print_hand()
 
+    # If-Else blocks resolve the round by comparing player and dealer hand values and paying-out to players if required
     if players_hand.is_bust():
         print("You've gone bust!")
         # Player loses money; exit this round

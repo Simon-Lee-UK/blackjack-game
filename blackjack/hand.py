@@ -14,13 +14,13 @@ class Hand:
     of the player's and dealer's hands.
     """
 
-    def __init__(self, holder_role="Player"):
+    def __init__(self, holder_name="Player"):
         """
         Initialises an empty hand object for a given participant.
 
         Parameters
         ----------
-        holder_role : str
+        holder_name : str
             Defines the owner, or 'holder', of the hand object bseing created: either 'Player' or 'Dealer'.
             Defaults to 'Player' for this base hand class.
         """
@@ -30,7 +30,7 @@ class Hand:
         self._active = True  # The active status communicates whether the hand is still active in the current round
         self._bust = False  # The bust status communicates whether the hand is bust (value > 21) in the current round
         self._natural = False  # The natural status communicates whether the hand is a natural (value = 21 with 2 cards)
-        self._holder_role = holder_role
+        self._holder_name = holder_name
 
     def __iter__(self):
         """
@@ -213,7 +213,12 @@ class Hand:
             method which must return a string-like object.
         """
         empty_string = ""
-        print(f"\n{self._holder_role}'s hand")
+        ends_with_s = self._holder_name[-1].lower() == "s"
+
+        if ends_with_s:
+            print(f"\n{self._holder_name}' hand")
+        else:
+            print(f"\n{self._holder_name}'s hand")
         for idx, single_card in enumerate(self):
             print(f"Card {idx}: {single_card.short_card_details()}")
         print(f"Value: {self.hand_value()}")
@@ -434,12 +439,22 @@ class PlayerHand(Hand):
     Players' hands are special because bets can be made against these hands.
     """
 
-    def __init__(self):
-        """Calls the __init__ method of the base Hand class, initialising an empty hand object for the player."""
+    def __init__(self, player_obj):
+        """
+        Calls the __init__ method of the base Hand class, initialising an empty hand object for the player.
+
+        Parameters
+        ----------
+        player_obj : blackjack.player.Player
+            The player object that owns the hand being initialised. The name of this player is queried and set
+            used to define the '_holder_name' attribute on the base class. This name is then displayed when printing
+            hand details to screen.
+        """
         self._bet = float(
             0
         )  # An attribute holding the amount bet by a player against this hand: initially zero
-        super().__init__()
+        player_name = player_obj.get_name()
+        super().__init__(player_name)
 
     def add_bet(self, amount):
         """

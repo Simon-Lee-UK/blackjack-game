@@ -75,7 +75,7 @@ def single_round(live_deck, player_one):
         collection of players to the round.
     """
     # Initialise hands
-    players_hand = PlayerHand()  # Initialises a hand object for the player
+    players_hand = PlayerHand(player_one)  # Initialises a hand object for the player
     dealers_hand = (
         DealerHand()
     )  # Initialises a hand object for the computer-controlled dealer

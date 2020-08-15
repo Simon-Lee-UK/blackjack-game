@@ -12,12 +12,15 @@ number_of_decks : int
     The number of 52-card decks that are shuffled into the dealer's deck object. This applies to the initial deck
     created at the start of the game and any subsequent decks created when the previous decks runs out of cards.
     Casinos normally use 6 decks at a time.
+deck_length_limit : int
+    When the number of cards in the deck falls below this limit, a new deck of card objects is created and shuffled.
 """
 
 from blackjack import Player, Deck, DealerHand, PlayerHand
 import time
 
-number_of_decks = 1
+number_of_decks = 6
+deck_length_limit = 60
 
 
 def main():
@@ -34,15 +37,23 @@ def main():
     the hand is discarded. ---
     """
     player_one = Player()
-    first_deck = Deck(number_of_decks)
-    first_deck.print_deck()  # This prints details of the cards in the deck - currently nice to check it's working OK
+    game_deck = Deck(number_of_decks)
     while True:
         time.sleep(1.5)
-        print("\n---------"
-              "\nNEW ROUND"
-              "\n---------")
+        if len(game_deck) < deck_length_limit:
+            game_deck.new_deck()
+            print(
+                "\n---------------------"
+                "\nNEW ROUND - NEW DECK!"
+                "\n---------------------"
+            )
+        else:
+            print("\n---------"
+                  "\nNEW ROUND"
+                  "\n---------")
+
         single_round(
-            first_deck, player_one
+            game_deck, player_one
         )  # This starts the first round of the game, providing the above deck and player objects as input args
 
 
@@ -94,7 +105,7 @@ def single_round(live_deck, player_one):
 
     # If-Else blocks resolve the round by comparing player and dealer hand values and paying-out to players if required
     if players_hand.is_bust():
-        # Player loses money (discarded with their hand); exit this round without resolving dealers hand
+        # Player immediately loses bet (discarded with their hand); exit this round without resolving dealers hand
         print("You've gone bust!")
         return
     else:

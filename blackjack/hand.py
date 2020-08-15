@@ -368,6 +368,7 @@ class DealerHand(Hand):
             return round_complete
         else:
             round_complete = True
+            self._reveal_hand()
             bet_amount = player_hand.get_bet()
 
         if self.is_natural() and not player_hand.is_natural():

@@ -378,13 +378,15 @@ class DealerHand(Hand):
 
         if self.is_natural() and not player_hand.is_natural():
             # No action, round ends and bet is collected (discarded) automatically with player's hand
-            pass
+            print("Dealer has a natural!")
         elif not self.is_natural() and player_hand.is_natural():
             # Player wins 1.5x their original bet; multiplier is 2.5x so bet amount is also deposited back into balance
+            print(f"\n{player_obj.get_name()} has a natural!")
             payout_multiplier = 2.5
             player_obj.update_balance(bet_amount * payout_multiplier)
         elif all((self.is_natural(), player_hand.is_natural())):
             # Stand-off between player and dealer: player's bet is deposited back into balance
+            print("\nA stand-off! You both have naturals!")
             payout_multiplier = 1
             player_obj.update_balance(bet_amount * payout_multiplier)
 

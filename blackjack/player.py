@@ -1,6 +1,9 @@
 """
 This module exports the 'Player' class and related methods.
 """
+import sys
+
+exit_string = "quit"  # If this string is entered by the user, the user exits the game.
 
 
 class Player:
@@ -39,7 +42,9 @@ class Player:
         """Sets the player's name via keyboard input from user: valid names are between 1 and 12 characters long."""
         while True:
             player_name = input("\nEnter your name: ")
-            if len(player_name) in range(1, 13):
+            if player_name.lower() == exit_string:
+                sys.exit()
+            elif len(player_name) in range(1, 13):
                 break
             print("Invalid name (Max length = 12 characters)")
         self._name = player_name
@@ -72,11 +77,16 @@ class Player:
         self.print_player_details()
         while True:
             try:
-                amount = round(float(input(f"\nPlace your bet: ")), self._precision)
+                input_amount = input(f"\nPlace your bet: ")
+                amount = round(
+                    float(input_amount.replace(self._currency, "")), self._precision
+                )
                 if 0 < amount <= self.get_balance():
                     break
                 print(invalid_bet_message)
             except ValueError:
+                if input_amount.lower() == exit_string:
+                    sys.exit()
                 print(invalid_bet_message)
 
         self._balance -= amount

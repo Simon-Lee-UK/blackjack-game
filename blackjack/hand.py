@@ -8,10 +8,10 @@ class Hand:
     """
     A class defining the properties and methods of a hand object.
 
-    A hand object is a collection of cards associated with either the dealer or the player. Within a round of blackjack,
-    cards are added to a hand when the associated player chooses to 'hit'. The outcome of each round is determined by
-    the relative values of the player's and dealer's hands. The 'DealerHand' subclass adds overrides/adds methods
-    providing actions specific to the game's dealer.
+    A hand object is a collection of cards associated with either the dealer or a player (each having their own 
+    respective subclasses with specialised methods and attributes). Within a round of blackjack, cards are added to a 
+    hand when the associated player chooses to 'hit'. The outcome of each round is determined by the relative values 
+    of the player's and dealer's hands.
     """
 
     def __init__(self, holder_role="Player"):
@@ -324,3 +324,28 @@ class DealerHand(Hand):
             if not card.is_face_up():
                 card.flip_card()
         self.print_hand()
+
+
+class PlayerHand(Hand):
+    """
+    A subclass defining the properties and methods specific to a hand object held by a player.
+
+    Players' hands are special because bets can be made against these hands.
+    """
+
+    def __init__(self):
+        """Calls the __init__ method of the base Hand class, initialising an empty hand object for the player."""
+        self._bet = float(0)  # An attribute holding the amount bet by a player against this hand: initially zero
+        super().__init__()
+
+    def add_bet(self, amount):
+        """
+        Adds a bet made by a player to the current hand object: at the end of a round, the dealer resolves this bet.
+
+        Parameters
+        ----------
+        amount : float
+            The amount bet against the hand object. In typical game flow, this bet amount has already been verified
+            as positive and has already been removed from the player's balance.
+        """
+        self._bet += amount

@@ -14,7 +14,7 @@ number_of_decks : int
     Casinos normally use 6 decks at a time.
 """
 
-from blackjack import Player, Deck, Hand, DealerHand
+from blackjack import Player, Deck, Hand, DealerHand, PlayerHand
 import time
 
 number_of_decks = 1
@@ -100,7 +100,7 @@ def single_player_action(live_deck, live_player_hand):
     ----------
     live_deck : blackjack.deck.Deck
         The game's 'live' deck object. If player action requires a card to be dealt, it will be dealt from this deck.
-    live_player_hand : blackjack.hand.Hand
+    live_player_hand : blackjack.hand.PlayerHand
         The player's 'live' hand object. The output action (hit/stand) will be applied to this hand.
     """
     while True:

@@ -65,7 +65,7 @@ class Player:
 
         Parameters
         ----------
-        player_hand : blackjack.hand.Hand
+        player_hand : blackjack.hand.PlayerHand
             The player's 'live' hand object. The user-entered bet will be linked to this hand.
         """
         invalid_bet_message = "Invalid bet: must be number between 0 and balance!"
@@ -84,7 +84,7 @@ class Player:
 
     def print_player_details(self):
         """
-        Docstring
+        Prints the player name followed by their game balance.
 
         Returns
         -------

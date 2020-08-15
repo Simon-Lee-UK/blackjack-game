@@ -386,10 +386,44 @@ class DealerHand(Hand):
 
     def settle_bet(self, player_hand, player_obj):
         """
-        Method to settle bets (where round was not fully resolved at 'naturals' stage).
+        Method settles any bets at the end of the round; where the player loses, the method exits and their bet is lost.
+
+        The value of the dealer's and player's hands are compared. If the player wins, their player object is payed the
+        value of their bet plus the original bet amount is returned. If it's a draw, the bet is returned to the player's
+        balance but they receive no winnings. If the player loses, the method exits and their balance is uneffected.
+        The bet placed against their hand is lost when a new round starts and new hands are initialised.
+
+        Parameters
+        ----------
+        player_hand : blackjack.hand.PlayerHand
+            A player's 'live' hand object. The value of this hand is read and compared to the value of the
+            dealer's hand. Where a payout is required, the amount bet against the hand is also read into 'bet_amount'.
+        player_obj : blackjack.player.Player
+            The player object that owns the input 'player_hand'. Where a payout is required, this player's balance
+            will be updated accordingly.
         """
-        # Optionally payout
-        pass
+        assert not any(
+            (self.is_active(), player_hand.is_active())
+        ), "Bets cannot be settled between the dealer and a player unless both participants have 'stood' or gone bust."
+
+        if player_hand.is_bust():
+            return
+        if self.is_bust():
+            dealer_score = 0
+        else:
+            dealer_score = self.best_hand_value()
+
+        if dealer_score > player_hand.best_hand_value():
+            return
+        else:
+            bet_amount = player_hand.get_bet()
+
+        if player_hand.best_hand_value() > dealer_score:
+            payout_multiplier = 2
+            player_obj.update_balance(bet_amount * payout_multiplier)
+        elif player_hand.best_hand_value() == dealer_score:
+            payout_multiplier = 1
+            player_obj.update_balance(bet_amount * payout_multiplier)
 
 
 class PlayerHand(Hand):

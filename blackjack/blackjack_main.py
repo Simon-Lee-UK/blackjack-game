@@ -94,8 +94,9 @@ def single_round(live_deck, player_one):
 
     # If-Else blocks resolve the round by comparing player and dealer hand values and paying-out to players if required
     if players_hand.is_bust():
-        print("You've gone bust!")
         # Player loses money (discarded with their hand); exit this round without resolving dealers hand
+        print("You've gone bust!")
+        return
     else:
         print(f"Your score = {players_hand.best_hand_value()}")  # remove?
         dealers_hand.resolve_hand(live_deck)

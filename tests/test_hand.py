@@ -1,7 +1,4 @@
-""" Tests for hand objects. Run using: python -m pytest. """
-
-import pytest
-from blackjack.hand import Hand
+""" Tests for hand objects. Run using: python -m pytest."""
 
 
 def test_hand_value_three_ten(hand_13_fixture):

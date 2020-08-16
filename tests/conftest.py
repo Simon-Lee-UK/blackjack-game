@@ -1,7 +1,7 @@
 """ File to create standard objects for test using pytest. """
 import pytest
 from blackjack.card import Card
-from blackjack.hand import Hand
+from blackjack.hand import Hand, DealerHand
 
 
 @pytest.fixture
@@ -33,28 +33,28 @@ def facedown_ace_fixture():
 
 @pytest.fixture
 def hand_13_fixture(three_clubs_fixture, queen_spades_fixture):
-    hand_13 = Hand("Player")
+    hand_13 = Hand()
     hand_13._live_hand.extend([three_clubs_fixture, queen_spades_fixture])
     return hand_13
 
 
 @pytest.fixture
 def hand_1ace_fixture(ace_spades_fixture, queen_spades_fixture):
-    hand_single_ace = Hand("Player")
+    hand_single_ace = Hand()
     hand_single_ace._live_hand.extend([ace_spades_fixture, queen_spades_fixture])
     return hand_single_ace
 
 
 @pytest.fixture
 def hand_2ace_fixture(ace_spades_fixture, ace_diamonds_fixture):
-    hand_double_ace = Hand("Player")
+    hand_double_ace = Hand()
     hand_double_ace._live_hand.extend([ace_spades_fixture, ace_diamonds_fixture])
     return hand_double_ace
 
 
 @pytest.fixture
 def hand_4ace_fixture(ace_spades_fixture, ace_diamonds_fixture):
-    hand_quad_ace = Hand("Player")
+    hand_quad_ace = Hand()
     hand_quad_ace._live_hand.extend(
         [
             ace_spades_fixture,
@@ -68,7 +68,7 @@ def hand_4ace_fixture(ace_spades_fixture, ace_diamonds_fixture):
 
 @pytest.fixture
 def hand_bust_fixture(three_clubs_fixture, queen_spades_fixture):
-    hand_bust = Hand("Player")
+    hand_bust = Hand()
     hand_bust._live_hand.extend(
         [three_clubs_fixture, queen_spades_fixture, queen_spades_fixture]
     )
@@ -77,6 +77,6 @@ def hand_bust_fixture(three_clubs_fixture, queen_spades_fixture):
 
 @pytest.fixture
 def hand_facedown_fixture(three_clubs_fixture, facedown_ace_fixture):
-    hand_facedown = Hand("Dealer")
+    hand_facedown = DealerHand()
     hand_facedown._live_hand.extend([three_clubs_fixture, facedown_ace_fixture])
     return hand_facedown

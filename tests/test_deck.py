@@ -1,4 +1,4 @@
-""" Tests for deck objects. Run using: python -m pytest."""
+"""Tests for deck objects. Run using: python -m pytest."""
 
 import pytest
 from blackjack.deck import Deck

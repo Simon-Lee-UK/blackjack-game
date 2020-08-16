@@ -1,4 +1,4 @@
-""" File to create standard objects for test using pytest. """
+"""File to create standard objects for test using pytest. """
 import pytest
 from blackjack.card import Card
 from blackjack.hand import Hand, DealerHand

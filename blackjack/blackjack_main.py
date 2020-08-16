@@ -79,6 +79,9 @@ def single_round(live_deck, player_one):
         DealerHand()
     )  # Initialises a hand object for the computer-controlled dealer
 
+    # Record player balance at start of the round
+    round_start_balance = player_one.get_balance()
+
     # Bets are placed
     player_one.place_bet(players_hand)
 
@@ -95,6 +98,7 @@ def single_round(live_deck, player_one):
     # Detects and settles any naturals drawn by the dealer or player; if round is fully resolved, exits 'single_round'
     round_complete = dealers_hand.settle_naturals(players_hand, player_one)
     if round_complete:
+        print_balance_difference(player_one, round_start_balance)
         return
 
     # While loop prompts the user for actions until they 'stand' or go bust
@@ -110,11 +114,12 @@ def single_round(live_deck, player_one):
         # Player immediately loses bet (discarded with their hand); exit this round without resolving dealers hand
         print("You've gone bust!")
         time.sleep(1)
-        return
     else:
         player_score_message = f"Your score = {players_hand.best_hand_value()}"
         dealers_hand.resolve_hand(live_deck, players_hand, player_score_message)
         dealers_hand.settle_bet(players_hand, player_one)
+
+    print_balance_difference(player_one, round_start_balance)
 
 
 def single_player_action(live_deck, live_player_hand):
@@ -147,29 +152,36 @@ def single_player_action(live_deck, live_player_hand):
 
 def print_welcome_message():
     """Prints a welcome message when the user starts the game."""
-    print("\n---------------------"
-          "\nLET'S PLAY BLACKJACK!"
-          "\n---------------------"
-          "\n\nType 'quit' at any time to exit.")
+    print(
+        "\n---------------------"
+        "\nLET'S PLAY BLACKJACK!"
+        "\n---------------------"
+        "\n\nType 'quit' at any time to exit."
+    )
 
 
-def print_game_over_message(player_one):
-    """Prints a game over message when the user has zero balance."""
+def print_game_over_message(player_obj):
+    """
+    Prints a game over message when the user has zero balance.
+
+    Parameters
+    ----------
+    player_obj : blackjack.player.Player
+        The player object with balance that has reached zero. The message informs this player that they are out.
+    """
     print(
         f"\n\n---------"
         f"\nGAME OVER"
         f"\n---------"
-        f"\nSorry {player_one.get_name()}, looks like you're out of money...\n"
+        f"\nSorry {player_obj.get_name()}, looks like you're out of money...\n"
     )
 
 
 def print_new_deck_message():
     """Prints a message when the dealer shuffles a new deck before beginning a new round."""
-    print(
-        "\n---------------------"
-        "\nNEW ROUND - NEW DECK!"
-        "\n---------------------"
-    )
+    print("\n---------------------"
+          "\nNEW ROUND - NEW DECK!"
+          "\n---------------------")
 
 
 def print_new_round_message():
@@ -177,6 +189,26 @@ def print_new_round_message():
     print("\n---------"
           "\nNEW ROUND"
           "\n---------")
+
+
+def print_balance_difference(player_obj, round_start_balance):
+    """Prints difference in player balance between the start and the end of the round i.e. prints winnings/losses.
+
+    Parameters
+    ----------
+    player_obj : blackjack.player.Player
+        The player object for which change in balance across the round is calculated/printed.
+    round_start_balance : float
+        The balance associated with 'player_obj' at the start of the current round.
+    """
+    round_balance_diff = player_obj.get_balance() - round_start_balance
+    if round_balance_diff < 0:
+        diff_sign = "-"
+    else:
+        diff_sign = "+"
+    print(
+        f"\n({diff_sign} {player_obj.get_currency()}{abs(round_balance_diff):.{player_obj.get_precision()}f})"
+    )
 
 
 if __name__ == "__main__":

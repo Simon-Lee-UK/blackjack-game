@@ -64,6 +64,14 @@ class Player:
         """
         self._balance += difference
 
+    def get_precision(self):
+        """Returns the post-decimal precision that player balance will be quoted to."""
+        return self._precision
+
+    def get_currency(self):
+        """Returns the currency associated with the player's balance."""
+        return self._currency
+
     def place_bet(self, player_hand):
         """
         Processes a bet made by a player: user enters bet amount; amount is verified; if OK, bet is added to input hand.
@@ -103,5 +111,5 @@ class Player:
             __repr__ method which must return a string-like object.
         """
         empty_string = ""
-        print(f"{self._name}: balance = {self._currency}{self._balance:.2f}")
+        print(f"{self._name}: balance = {self._currency}{self._balance:.{self._precision}f}")
         return empty_string

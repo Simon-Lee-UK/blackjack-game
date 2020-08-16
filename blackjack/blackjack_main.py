@@ -42,7 +42,7 @@ def main():
     player_one = Player()
     game_deck = Deck(number_of_decks)
     while player_one.get_balance() > 0:
-        time.sleep(1.5)
+        time.sleep(1)
         if len(game_deck) < deck_length_limit:
             game_deck.new_deck()
             print_new_deck_message()
@@ -100,16 +100,20 @@ def single_round(live_deck, player_one):
     # While loop prompts the user for actions until they 'stand' or go bust
     while players_hand.is_active():
         single_player_action(live_deck, players_hand)
+        dealers_hand.print_hand()
         players_hand.print_hand()
+
+    time.sleep(1)
 
     # If-Else blocks resolve the round by comparing player and dealer hand values and paying-out to players if required
     if players_hand.is_bust():
         # Player immediately loses bet (discarded with their hand); exit this round without resolving dealers hand
         print("You've gone bust!")
+        time.sleep(1)
         return
     else:
-        print(f"Your score = {players_hand.best_hand_value()}")  # remove?
-        dealers_hand.resolve_hand(live_deck)
+        player_score_message = f"Your score = {players_hand.best_hand_value()}"
+        dealers_hand.resolve_hand(live_deck, players_hand, player_score_message)
         dealers_hand.settle_bet(players_hand, player_one)
 
 

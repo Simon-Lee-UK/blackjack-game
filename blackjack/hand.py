@@ -202,9 +202,14 @@ class Hand:
         self._live_hand.append(drawn_card)
         self._verify_hand_status()
 
-    def print_hand(self):
+    def print_hand(self, alt_text=None):
         """
         Prints the hand's owner followed by shorthand details of all cards currently within the hand.
+
+        Parameters
+        ----------
+        alt_text : str
+            This optional argument will be printed instead of the hand owner's name if provided.
 
         Returns
         -------
@@ -215,13 +220,18 @@ class Hand:
         empty_string = ""
         ends_with_s = self._holder_name[-1].lower() == "s"
 
-        if ends_with_s:
+        if alt_text is not None:
+            print(alt_text)
+        elif ends_with_s:
             print(f"\n{self._holder_name}' hand")
         else:
             print(f"\n{self._holder_name}'s hand")
+
         for idx, single_card in enumerate(self):
             print(f"Card {idx}: {single_card.short_card_details()}")
-        print(f"Value: {self.hand_value()}")
+
+        if self.is_active():
+            print(f"Value: {self.hand_value()}")
         return empty_string
 
     def _verify_hand_status(self):
@@ -306,7 +316,7 @@ class DealerHand(Hand):
             face_dir = "up"
             super().draw_card(deck_obj, face_dir)
 
-    def resolve_hand(self, deck_obj):
+    def resolve_hand(self, deck_obj, player_hand, player_score_message):
         """
         This method automatically resolves the dealer's hand: drawing cards until the hand value exceeds seventeen.
 
@@ -318,23 +328,41 @@ class DealerHand(Hand):
         ----------
         deck_obj : blackjack.deck.Deck
             The game's 'live' deck object - cards may be removed from this deck and added to the dealer's hand object.
+        player_hand : blackjack.hand.PlayerHand
+            A player's 'live' hand object. Allows the player's hand to be printed for comparison as the dealer's hand is
+            resolved.
+        player_score_message : str
+            A string that communicates the players score. As the dealer's hand is resolved, the players score is
+            printed each time the dealer's hand is printed so the user can easily compare the relative scores.
         """
         dealer_target = 17
         draw_delay = 1
+        print(player_score_message)
+        print("\n---------------")
         self._reveal_hand()
+        print("---------------")
         time.sleep(draw_delay)
 
         while True:
             if self.is_bust():
-                print("Dealer has gone bust!")
+                self.print_hand(alt_text="\nDealer has gone bust!")
+                player_hand.print_hand()
+                print(player_score_message)
+                print("\n---")
                 break
             elif self.best_hand_value() < dealer_target:
                 self.draw_card(deck_obj)
-                self.print_hand()
+                self.print_hand(alt_text="\nDealer hits:")
+                player_hand.print_hand()
+                print(player_score_message)
+                print("\n---")
                 time.sleep(draw_delay)
             else:
                 self.stand()
-                print(f"Dealer's' score = {self.best_hand_value()}")
+                self.print_hand(alt_text="\nDealer stands:")
+                print(f"Dealer's score = {self.best_hand_value()}")
+                player_hand.print_hand()
+                print(player_score_message)
                 break
 
     def _reveal_hand(self):
@@ -342,7 +370,7 @@ class DealerHand(Hand):
         for card in self:
             if not card.is_face_up():
                 card.flip_card()
-        self.print_hand()
+        self.print_hand(alt_text="Dealer reveals hand:")
 
     def settle_naturals(self, player_hand, player_obj):
         """
@@ -373,7 +401,11 @@ class DealerHand(Hand):
             return round_complete
         else:
             round_complete = True
+            draw_delay = 1
+            print("\n---------------")
             self._reveal_hand()
+            print("---------------")
+            time.sleep(draw_delay)
             bet_amount = player_hand.get_bet()
 
         if self.is_natural() and not player_hand.is_natural():

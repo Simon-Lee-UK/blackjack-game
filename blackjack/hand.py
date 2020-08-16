@@ -3,6 +3,9 @@ This module exports the 'Hand' class, 'PlayerHand' and 'DealerHand' subclasses, 
 """
 import time
 
+draw_delay = 1  # The pause in seconds between drawn card actions
+twenty_one = 21  # Ideal score value for both players
+
 
 class Hand:
     """
@@ -230,13 +233,16 @@ class Hand:
         for idx, single_card in enumerate(self):
             print(f"Card {idx}: {single_card.short_card_details()}")
 
-        if self.is_active():
+        if (
+            self.is_active()
+            or self.is_bust()
+            or (self.best_hand_value() == twenty_one and alt_text is not None)
+        ):
             print(f"Value: {self.hand_value()}")
         return empty_string
 
     def _verify_hand_status(self):
         """Checks whether the hand is bust, has value equal to 21 or is a natural. Updates hand status accordingly."""
-        twenty_one = 21
         natural_length = 2
         if self.best_hand_value() is None:
             self._bust = True
@@ -336,21 +342,15 @@ class DealerHand(Hand):
             printed each time the dealer's hand is printed so the user can easily compare the relative scores.
         """
         dealer_target = 17
-        draw_delay = 1
         print(player_score_message)
-        print("\n---------------")
-        self._reveal_hand()
-        print("---------------")
-        time.sleep(draw_delay)
+        if player_hand.best_hand_value() == twenty_one:
+            print("You've got 21!")
+            time.sleep(draw_delay)
 
-        while True:
-            if self.is_bust():
-                self.print_hand(alt_text="\nDealer has gone bust!")
-                player_hand.print_hand()
-                print(player_score_message)
-                print("\n---")
-                break
-            elif self.best_hand_value() < dealer_target:
+        self._reveal_hand()
+
+        while self.is_active():
+            if self.best_hand_value() < dealer_target:
                 self.draw_card(deck_obj)
                 self.print_hand(alt_text="\nDealer hits:")
                 player_hand.print_hand()
@@ -365,12 +365,21 @@ class DealerHand(Hand):
                 print(player_score_message)
                 break
 
+        if self.is_bust():
+            self.print_hand(alt_text="\nDealer has gone bust!")
+            player_hand.print_hand()
+            print(player_score_message)
+            print("\n---")
+
     def _reveal_hand(self):
         """Turns all cards in the hand face-up and prints hand details to the screen."""
+        print("\n---------------")
         for card in self:
             if not card.is_face_up():
                 card.flip_card()
         self.print_hand(alt_text="Dealer reveals hand:")
+        print("---------------")
+        time.sleep(draw_delay)
 
     def settle_naturals(self, player_hand, player_obj):
         """
@@ -401,24 +410,22 @@ class DealerHand(Hand):
             return round_complete
         else:
             round_complete = True
-            draw_delay = 1
-            print("\n---------------")
-            self._reveal_hand()
-            print("---------------")
-            time.sleep(draw_delay)
             bet_amount = player_hand.get_bet()
 
         if self.is_natural() and not player_hand.is_natural():
             # No action, round ends and bet is collected (discarded) automatically with player's hand
+            self._reveal_hand()
             print("Dealer has a natural!")
         elif not self.is_natural() and player_hand.is_natural():
             # Player wins 1.5x their original bet; multiplier is 2.5x so bet amount is also deposited back into balance
-            print(f"\n{player_obj.get_name()} has a natural!")
+            print(f"\n{player_obj.get_name()} has a natural (dealer does not)!")
             payout_multiplier = 2.5
             player_obj.update_balance(bet_amount * payout_multiplier)
         elif all((self.is_natural(), player_hand.is_natural())):
             # Stand-off between player and dealer: player's bet is deposited back into balance
-            print("\nA stand-off! You both have naturals!")
+            print(f"\n{player_obj.get_name()} has a natural!")
+            self._reveal_hand()
+            print("\nSo does the dealer! It's a stand-off!")
             payout_multiplier = 1
             player_obj.update_balance(bet_amount * payout_multiplier)
 

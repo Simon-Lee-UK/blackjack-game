@@ -1,11 +1,11 @@
 """
 This module defines the flow of actions required to play a game of blackjack.
 
-Classes that define game objects are imported from supporting modules. The 'main()' function is called when the
+Classes that define game objects are imported from supporting modules. The 'run()' function is called when the
 module is executed as a script. This function initiates a game of blackjack and loops through the required flow of
 actions to keep the game running until the user quits or their balance reaches zero. Repeating sequences of actions,
 e.g. a single round, are defined in their own functions to improve readability: these are called as necessary from
-'main()'.
+'run()'.
 
 Attributes
 ----------
@@ -28,7 +28,7 @@ deck_length_limit = 60
 exit_string = "quit"
 
 
-def main():
+def run():
     """
     Controls the flow of the blackjack game based on user actions and outcomes. Call 'blackjack_main.py' to execute.
 
@@ -212,4 +212,4 @@ def print_balance_difference(player_obj, round_start_balance):
 
 
 if __name__ == "__main__":
-    main()
+    run()

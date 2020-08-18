@@ -13,7 +13,7 @@ instructions to get started can be found below; one day I'll come back and add a
 <p align="center">
   <img src="https://github.com/Simon-Lee-UK/image-repository/blob/master/blackjack-game/blackjack_gameplay_composite.png"
   alt="Blackjack gameplay examples"
-  width="738">
+  width="900">
 </p>
 
 ## Getting Started

@@ -62,7 +62,7 @@ python -m pytest
 - Create StatJack: an agent that repeatedly plays rounds of the game with pseudo-random inputs, generating a large 
 dataset of outcomes linked to initial/intermediate conditions and player actions.
 - Train a ML agent to play (basing the reward function on long-term balance as opposed to rounds won); compare to 
-results of visualised from StatJack; trained agent could play alongside human players.
+results from StatJack visualising key decision pathways; trained agent could play alongside human players.
   
 ## License
 The code in this project is licensed under the [MIT License](https://choosealicense.com/licenses/mit/). 
